@@ -1,10 +1,16 @@
-import './App.css';
+import "./App.css";
+import { BrowserRouter as Router, Route, useHistory } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import { history } from "../redux/configureStore";
+
+import Main from "../pages/Main"
+
 
 function App() {
   return (
-    <div className='App'>
-      <h1>안녕하세요!!</h1>
-    </div>
+    <ConnectedRouter history={history}>
+      <Route path="/" exact component={Main}/>
+    </ConnectedRouter>
   );
 }
 
