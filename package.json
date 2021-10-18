@@ -13,6 +13,7 @@
     "axios": "^0.23.0",
     "connected-react-router": "6.8.0",
     "history": "4.10.1",
+    "http-proxy-middleware": "^2.0.1",
     "immer": "^9.0.6",
     "moment": "^2.29.1",
     "react": "^17.0.2",
