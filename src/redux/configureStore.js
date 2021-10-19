@@ -1,16 +1,25 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import Cart from './modules/cart';
 import { createBrowserHistory } from 'history';
 import { connectRouter } from 'connected-react-router';
 
+import Cart from './modules/cart';
+import Post from './modules/post';
+// import Comment from "./modules/comment";
+// import User from "./modules/user";
+
+export const history = createBrowserHistory();
+
 const rootReducer = combineReducers({
+  //   user: User,
+  post: Post,
   cart: Cart,
-  // router: connectRouter(history),
+  //   comment: Comment,
+  router: connectRouter(history),
 });
 
-const middlewares = [thunk];
-// const middlewares = [thunk.withExtraArgument({ history: history })];
+// 미들웨어
+const middlewares = [thunk.withExtraArgument({ history: history })];
 
 // 지금이 어느 환경인 지 알려줘요. (개발환경, 프로덕션(배포)환경 ...)
 const env = process.env.NODE_ENV;
@@ -28,10 +37,10 @@ const composeEnhancers =
       })
     : compose;
 
+//미들웨어 묶기
 const enhancer = composeEnhancers(applyMiddleware(...middlewares));
 
+// 스토어만들기
 let store = (initialStore) => createStore(rootReducer, enhancer);
 
 export default store();
-
-export const history = createBrowserHistory();
