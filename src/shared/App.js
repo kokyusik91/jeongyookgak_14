@@ -1,27 +1,17 @@
-import React, { useEffect } from 'react';
 import './App.css';
-import axios from 'axios';
+import { BrowserRouter as Router, Route, useHistory } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import { history } from "../redux/configureStore";
+
+import Main from "../pages/Main"
+
 
 function App() {
-  useEffect(() => {
-    axios({
-      url: 'http://3.36.92.203/',
-      method: 'GET',
-    })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
   return (
-    <div className='App'>
-      <h1>안녕하세요!!</h1>
-      <button>연결 test</button>
-    </div>
-  );
-}
+    <ConnectedRouter history={history}>
+      <Route path="/" exact component={Main}/>
+    </ConnectedRouter>
+    );
+  } ;
 
 export default App;
