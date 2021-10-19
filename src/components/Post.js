@@ -2,10 +2,17 @@ import React from "react";
 import Grid from "../elements/Grid";
 import styled from "styled-components";
 import image1 from "../images/main_image1.png";
-import button from "../images/button.png";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import button_image from "../images/button_image.png";
 
-const Post = () => {
+import Modal from "../components/Modal";
+
+const Post = (props) => {
+  const { id, category, title, price, image, imageDetail } = props;
+
+  // const [open, setOpen] = React.useState(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
+
   const handleMouseEnter = (e) => {
     e.target.style.background = "black";
   };
@@ -15,31 +22,40 @@ const Post = () => {
 
   return (
     <React.Fragment>
-      <Grid bg="#f9f7f8" width="20vw">
-        <Grid>
-          <Image bgi={image1} margin="90px 50px 20px" padding="40% 0 0 0 " b>
-            이미지
-          </Image>
-          <Grid is_flex4 width="auto" margin=" 0px 15px 10px 0px">
+
+      <Grid margin="0 20px 15px 0" flexBasis>
+
+        <Grid bg="#f9f7f8" width="100%">
+          <Grid>
+            <Image bgi={image} width="150px" margin="0px 30px"></Image>
+          </Grid>
+
+          <Grid is_flex4 margin="0 30px 0px 0">
             <Button
+              
               onClick={() => {
-                console.log("하이");
+                console.log("안녕");
               }}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              버튼
+              모달
             </Button>
+            {/* 
+            <Modal _setModal={setOpen} /> */}
           </Grid>
+        </Grid>
+
+        <Grid margin="20px 0 0 0">
+          <Text size="20px" bold color="black">
+            {title}
+          </Text>
+          <Text size="20px" color="black">
+            가격 : {price}
+          </Text>
         </Grid>
       </Grid>
 
-      <Grid margin="15px 0 0 0">
-        <Text size="20px" bold>
-          타이틀
-        </Text>
-        <Text size="20px">가격</Text>
-      </Grid>
     </React.Fragment>
   );
 };
@@ -53,13 +69,13 @@ const Image = styled.div`
   ${(props) => (props.bgi ? `background-image: url(${props.bgi})` : "")};
   ${(props) => (props.bg ? `background-color:${props.bg}` : "")};
   ${(props) => (props.radius ? `background-radius:${props.radius}` : "")};
-
-
+  max-width: 400px;
   background-position: center;
   background-size: cover;
 `;
 
 const Button = styled.button`
+  ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
   width: 72px;
   height: 72px;
   border-radius: 50%;
@@ -67,12 +83,13 @@ const Button = styled.button`
   box-shadow: 0 25px 10px -15px rgb(0 0 0 / 12%);
   background-color: #fff;
   cursor: pointer;
-  /* background-image: url("../images/button.png");
+  /* background-image: url("../images/button_image");
   background-size: cover;
   background-position: center; */
 `;
 
 const Text = styled.p`
+  ${(props) => (props.color ? `color:${props.color}` : "")};
   ${(props) => (props.size ? `font-size:${props.size}` : "")};
   ${(props) => (props.bold ? `font-weight:800 ` : `font-weight:400`)};
 `;
