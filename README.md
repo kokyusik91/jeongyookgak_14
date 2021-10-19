@@ -19,3 +19,7 @@
 2. 패키지 설치.
 3. 페이지 나누기.
 4. 글자 폰트 생성 "Spoqa Han Sans"
+5. axios 통신 연결
+6. Grid styled-components 작성
+7. react-router-dom (Main.js,Detail.js,Cart.js) Route연결 + Switch
+8.
