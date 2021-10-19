@@ -1,25 +1,18 @@
-import React, { useEffect } from 'react';
-import './App.css';
-import axios from 'axios';
+import React, { useEffect } from "react";
+import { Route } from "react-router-dom";
+
+import axios from "axios";
+
+import Header from "../components/Header";
+import Login from "../pages/Login";
+import Signup from "../pages/Signup";
 
 function App() {
-  useEffect(() => {
-    axios({
-      url: 'http://3.36.92.203/',
-      method: 'GET',
-    })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
   return (
-    <div className='App'>
-      <h1>안녕하세요!!</h1>
-      <button>연결 test</button>
+    <div className="App">
+      <Header />
+      <Route path="/Login" exact component={Login} />
+      <Route path="/Signup" exact component={Signup} />
     </div>
   );
 }
