@@ -19,7 +19,7 @@ const Header = () => {
                 onClick={() => {
                   //메인페이지로
                 }}
-                cursor
+                cursor="ture"
               />
             </Grid>
             <Text
@@ -27,7 +27,7 @@ const Header = () => {
               onClick={() => {
                 // 쇼핑하기로
               }}
-              cursor
+              cursor="ture"
             >
               쇼핑하기
             </Text>
@@ -43,7 +43,7 @@ const Header = () => {
               onClick={() => {
                 history.push("/Login");
               }}
-              cursor
+              cursor="ture"
             >
               로그인
             </Text>
@@ -52,7 +52,7 @@ const Header = () => {
               onClick={() => {
                 history.push("/Signup");
               }}
-              cursor
+              cursor="ture"
             >
               회원가입
             </Text>
@@ -63,7 +63,7 @@ const Header = () => {
               onClick={() => {
                 //장바구니로
               }}
-              cursor="pointer"
+              cursor="ture"
             />
           </Grid>
         </Grid>
@@ -76,7 +76,9 @@ export default Header;
 
 const Grid = styled.div`
   ${(props) =>
-    props.isFlex ? `display : flex; align-items : center ; justify-content : space-between;` : ""};
+    props.isFlex
+      ? `display : flex; align-items : center ; justify-content : space-between;`
+      : ""};
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   background: black;
@@ -88,12 +90,12 @@ const Text = styled.p`
   font-size: ${(props) => props.size};
   color: ${(props) => props.color};
   margin: 10px;
-  ${(props) => (props.cursor ? `cursor : pointer` : "")}
+  ${(props) => (props.cursor ? `cursor : pointer;` : "")}
 `;
 
 const Image = styled.img`
   width: 129px;
   height: 48px;
   src: "";
-  ${(props) => (props.cursor ? `cursor : pointer` : "")}
+  ${(props) => (props.cursor ? `cursor : pointer;` : "")}
 `;

@@ -53,8 +53,7 @@ export default handleActions(
   {
     [SET_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.list = action.payload.post_list
- 
+        draft.list = action.payload.post_list;
       }),
   },
   initialState

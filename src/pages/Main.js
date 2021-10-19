@@ -40,11 +40,11 @@ const Main = () => {
           정육각 베스트 상품
         </Text>
       </Grid>
-      
-      <Grid width="60vw" margin="4rem auto" flex wrap >
-          {post_list.map((p, idx) => {
-            return <Post key={p.id} {...p} />;
-          })}
+
+      <Grid width="60vw" margin="4rem auto" flex wrap>
+        {post_list.map((p, idx) => {
+          return <Post key={p.id} {...p} />;
+        })}
       </Grid>
 
       <Grid width="60vw" margin="4rem auto">
