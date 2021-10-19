@@ -32,7 +32,7 @@ const Grid = (props) => {
     width,
     height,
     maxHeight,
-    wrap,
+    // wrap,
     review_flex,
     post_flex,
     card_flex,
@@ -69,7 +69,7 @@ const Grid = (props) => {
     width: width,
     height: height,
     maxHeight: maxHeight,
-    wrap: wrap,
+    // wrap: wrap,
     border: border,
     card_flex: card_flex,
     is_header: is_header,
@@ -129,7 +129,7 @@ Grid.defaultProps = {
   left: false,
   right: false,
   maxHeight: false,
-  wrap: false,
+  // wrap: false,
   border: '',
   is_header: '',
   is_border: '',
@@ -188,7 +188,7 @@ const GridBox = styled.div`
   ${(props) => (props.flex ? `display: flex; ` : '')}
   ${(props) =>
     props.card_flex ? `display: flex; justify-content: center;` : ''}
-  ${(props) => (props.wrap ? `flex-wrap: wrap;` : '')}
+  /* ${(props) => (props.wrap ? `flex-wrap: wrap;` : '')} */
   ${(props) => (props.border ? `border: ${props.border};` : '')}
   ${(props) => (props.is_border ? `border: ${props.is_border};` : '')}
   ${(props) =>
