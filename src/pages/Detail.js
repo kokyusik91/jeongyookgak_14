@@ -3,12 +3,22 @@ import styled from 'styled-components';
 import Grid from '../elements/Grid2';
 import Text from '../elements/Text';
 import data from '../config/data';
+import { history } from '../redux/configureStore';
+import { useDispatch } from 'react-redux';
+import { actionCreators as cartActions } from '../redux/modules/cart';
 
 const Detail = () => {
-  console.log(data);
+  // console.log(data);
   const [수량, 수량변경] = useState(1);
+  const dispatch = useDispatch();
+  // 장바구니 목록 추가
+  const addCart_list = { ...data[0], count: 수량 };
+
+  // 리덕스에 장바구니 목록 추가!!!!
   const addCartRequest = () => {
-    console.log('장바구니 추가');
+    // console.log('리덕스에 추가할 데이터', addCart_list);
+    dispatch(cartActions.addCart(addCart_list));
+    history.push('/cart');
   };
   const countMinus = () => {
     if (수량 < 2) {
@@ -175,7 +185,7 @@ const Button = styled.button`
   background-color: ${(props) => props.bgcolor};
   ${(props) => (props.margin ? `margin:${props.margin}` : '')};
   border: none;
-  cursor: pointer;
+  /* cursor: pointer; */
   text-align: center;
   ${(props) => (props.border ? `border:${props.border}` : '')};
   /* border: 1px solid #fff; */

@@ -6,6 +6,7 @@ const Grid = (props) => {
     type,
     width,
     height,
+    flex_direct,
     is_flex,
     flex,
     children,
@@ -22,13 +23,15 @@ const Grid = (props) => {
   const styles = {
     width: width,
     height: height,
+    flex: flex,
     padding: padding,
     margin: margin,
     justify: justify,
     bg: bg,
     aligns: aligns,
     is_flex: is_flex,
-    flex,
+    flex_direct: flex_direct,
+    flex: flex,
     display: display,
     border: border,
   };
@@ -74,9 +77,12 @@ const GridDiv = styled.div`
   ${(props) => (props.is_flex ? `display:flex` : '')};
   ${(props) => (props.justify ? `justify-content:${props.justify}` : '')};
   ${(props) => (props.aligns ? `align-items:${props.aligns}` : '')};
+  ${(props) =>
+    props.flex_direct ? `flex-direction:${props.flex_direct}` : ''};
   ${(props) => (props.margin ? `margin:${props.margin}` : '')};
   ${(props) => (props.padding ? `padding:${props.padding}` : '')};
   ${(props) => (props.bg ? `background-color:${props.bg}` : '')};
+  ${(props) => (props.flex ? `flex-grow:${props.flex}` : '')};
   ${(props) => (props.dipslay ? `display:${props.dipslay}` : '')};
   ${(props) => (props.border ? `border:${props.border}` : '')};
 `;

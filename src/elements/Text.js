@@ -25,7 +25,7 @@ Text.defaultProps = {
 const P = styled.p`
   color: ${(props) => props.color};
   font-size: ${(props) => (props.is_title ? '26px' : props.size)};
-  font-weight: ${(props) => (props.bold ? '900' : '600')};
+  font-weight: ${(props) => (props.bold ? '900' : '400')};
   ${(props) => (props.textAlign ? `text-align :${props.textAlign}` : '')};
   ${(props) => (props.margin ? `margin : ${props.margin}` : '')};
 `;

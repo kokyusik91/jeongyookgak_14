@@ -3,7 +3,6 @@ import Detail from '../pages/Detail';
 import Cart from '../pages/Cart';
 import Footer from '../components/Footer';
 import ShopList from '../pages/ShopList';
-import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import { history } from '../redux/configureStore';
