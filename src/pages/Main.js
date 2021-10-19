@@ -12,13 +12,16 @@ import {useDispatch,useSelector} from "react-redux"
 import {actionCreators as userAction} from "../redux/modules/post"
 
 const Main = () => {
-  // const dispatch = useDispatch();
-  const post_list = useSelector((state)=>state.post.list)
-  console.log(post_list)
+  const dispatch = useDispatch();
+  // const post_list = useSelector((state)=>state.post.list)
+  // console.log(post_list)
 
-// React.useEffect(() => {
-//   dispatch(userAction.setPost())
-// }, [])
+  
+
+
+React.useEffect(() => {
+  dispatch(userAction.getPostDB())
+}, [])
 
   return (
     <Grid>

@@ -1,6 +1,6 @@
 import { createAction, handleActions} from "redux-actions";
 import { produce } from "immer"
-import instance from "../../shared/axios"
+import {apis} from "../../shared/axios"
 import axios from "axios"
 
 //액션 타입
@@ -35,6 +35,17 @@ list:[
 
 //미들웨어
 
+const getPostDB = () => {
+    return (dispatch) =>{
+        apis
+        .get() // 헤더 포함되어있음
+        .then((res)=>{
+            console.log(res.data.products)
+            // const post_list = res.data.product;
+            // dispatch(setPost(post_list));
+        })
+    }
+}
 
 
 //리듀서
@@ -51,7 +62,9 @@ export default handleActions({
 },initialState)
 
 const actionCreators = {
-    setPost
+    setPost,
+
+    getPostDB
 }
 
 export {actionCreators};
