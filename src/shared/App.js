@@ -11,8 +11,8 @@ import Signup from "../pages/Signup";
 function App() {
   return (
     <ConnectedRouter history={history}>
-      <Route path="/" exact component={Main} />
       <Header />
+      <Route path="/" exact component={Main} />
       <Route path="/Login" exact component={Login} />
       <Route path="/Signup" exact component={Signup} />
     </ConnectedRouter>
