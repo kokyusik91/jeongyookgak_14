@@ -4,53 +4,71 @@ import Grid from "../elements/Grid";
 
 import Post from "../components/Post";
 import shopping_image1 from "../images/shopping_image1.png";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as useActions } from "../redux/modules/post";
 
 const Shopping = () => {
+
+  const dispatch = useDispatch();
+  const category_list = useSelector((state) => state.post.category_list);
+  console.log(category_list);
+
+  let category = null;
+  // const [category, setCategory] = React.useState();
+  const handleCategory = (e) => {
+    // setCategory(e.target.value)
+    category = e.target.value;
+    dispatch(useActions.getCategoryDB(category));
+  };
+
+  React.useEffect(() => {
+    dispatch(useActions.getCategoryDB("PORK"));
+  }, []);
+
   return (
     <React.Fragment>
       <Grid>
         <Image bg="green" bgi={shopping_image1} width="13vw" />
       </Grid>
 
-      <Grid width="60vw" margin="4rem auto">
-        <Grid flex>
-          <Button margin="0 5px 0 0px">
-            <Text bold>돼지</Text>
-          </Button>
-          <Button margin="0 5px 0 0">
-            <Text bold>소</Text>
-          </Button>
-          <Button margin="0 5px 0 0">
-            <Text bold>닭</Text>
-          </Button>
-          <Button margin="0 5px 0 0">
-            <Text bold>수산</Text>
-          </Button>
-          <Button margin="0 5px 0 0">
-            <Text bold>밀키트</Text>
-          </Button>
-          <Button margin="0 5px 0 0">
-            <Text bold>우유</Text>
-          </Button>
-          <Button margin="0 5px 0 0">
-            <Text bold>달걀</Text>
-          </Button>
-          <Button margin="0 5px 0 0">
-            <Text bold>이유식</Text>
-          </Button>
-        </Grid>
+      <Grid width="60vw" margin="4rem auto" flex>
+        <Button value="PORK" margin="0 5px 0 0px" onClick={handleCategory}>
+          돼지
+        </Button>
+        <Button value="BEEF" margin="0 5px 0 0" onClick={handleCategory}>
+          소
+        </Button>
+        <Button value="CHICKEN" margin="0 5px 0 0" onClick={handleCategory}>
+          닭
+        </Button>
+        <Button value="SEAFOOD" margin="0 5px 0 0" onClick={handleCategory}>
+          수산
+        </Button>
+        <Button value="MEALKIT" margin="0 5px 0 0" onClick={handleCategory}>
+          밀키트
+        </Button>
+        <Button value="MILK" margin="0 5px 0 0" onClick={handleCategory}>
+          우유
+        </Button>
+        <Button value="EGG" margin="0 5px 0 0" onClick={handleCategory}>
+          달걀
+        </Button>
+        <Button value="BABY" margin="0 5px 0 0" onClick={handleCategory}>
+          이유식
+        </Button>
       </Grid>
 
-      <Grid width="60vw" margin="4rem auto">
-        <Grid is_flex wrap>
-          <Post />
-        </Grid>
+      <Grid width="60vw" margin="4rem auto" flex wrap>
+        {category_list.map((p, idx) => {
+          return <Post key={p.id} {...p} />;
+        })}
       </Grid>
     </React.Fragment>
   );
 };
 
 const Button = styled.button`
+  font-weight: bold;
   cursor: pointer;
   border-style: none;
   width: 143.63px;

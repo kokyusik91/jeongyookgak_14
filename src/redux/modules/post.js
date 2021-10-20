@@ -5,33 +5,18 @@ import axios from "axios";
 
 //액션 타입
 const SET_POST = "SET_POST";
+const SET_CATEGORY = "SET_CATEGORY"
 
 //액션 생성함수
 
 const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
+const setCategory = createAction(SET_CATEGORY, (category_list) => ({ category_list }));
 
 //초기값
 
 const initialState = {
-  list: [
-    {
-      id: "id",
-      category: "육류",
-      title: "고기",
-      price: 10000,
-      image:
-        "https://img.huffingtonpost.com/asset/602c66fc240000ae01cbc1e2.jpeg?cache=YXkQIJs6ue&ops=1778_1000",
-    },
-
-    {
-      id: "id2",
-      category: "과일",
-      title: "사과",
-      price: 8000,
-      image:
-        "https://cdn.mkhealth.co.kr/news/photo/202010/50970_51164_4758.jpg",
-    },
-  ],
+  list: [],
+  category_list:[],
 };
 
 //미들웨어
@@ -48,12 +33,31 @@ const getPostDB = () => {
   };
 };
 
+//미들웨어
+const getCategoryDB = (category) => {
+  return (dispatch) => {
+    // console.log(category)
+    apis
+      .get(`api/list?category=${category}`)
+         // 헤더 포함되어있음
+      .then((res) => {
+        // console.log(res.data.products);
+        const category_list = res.data.products;
+        dispatch(setCategory(category_list));
+      });
+  };
+};
+
 //리듀서
 export default handleActions(
   {
     [SET_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list = action.payload.post_list;
+      }),
+      [SET_CATEGORY]: (state, action) =>
+      produce(state, (draft) => {
+        draft.category_list = action.payload.category_list;
       }),
   },
   initialState
@@ -63,6 +67,7 @@ const actionCreators = {
   setPost,
 
   getPostDB,
+  getCategoryDB,
 };
 
 export { actionCreators };

@@ -17,7 +17,7 @@ const Header = () => {
               <Image
                 src={logo}
                 onClick={() => {
-                  //메인페이지로
+                  history.push('/')
                 }}
                 cursor='ture'
               />
@@ -25,7 +25,7 @@ const Header = () => {
             <Text
               color='white'
               onClick={() => {
-                // 쇼핑하기로
+                history.push('/shopping')
               }}
               cursor='ture'
             >

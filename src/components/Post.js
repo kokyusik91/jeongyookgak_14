@@ -1,24 +1,17 @@
 import React from "react";
 import Grid from "../elements/Grid";
 import styled from "styled-components";
-import image1 from "../images/main_image1.png";
 import button_image from "../images/button_image.png";
-
-import Modal from "../components/Modal";
 
 const Post = (props) => {
   const { id, category, title, price, image, imageDetail } = props;
 
-  // const [open, setOpen] = React.useState(false);
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
-
-  const handleMouseEnter = (e) => {
-    e.target.style.background = "black";
-  };
-  const handleMouseLeave = (e) => {
-    e.target.style.background = "white";
-  };
+  // const handleMouseEnter = (e) => {
+  //   e.target.style.background = "black";
+  // };
+  // const handleMouseLeave = (e) => {
+  //   e.target.style.background = "white";
+  // };
 
   return (
     <React.Fragment>
@@ -26,24 +19,23 @@ const Post = (props) => {
       <Grid margin="0 20px 15px 0" flexBasis>
 
         <Grid bg="#f9f7f8" width="100%">
+          
           <Grid>
-            <Image bgi={image} width="150px" margin="0px 30px"></Image>
+            <Image bgi={image} width="140px" margin="0px 30px"></Image>
           </Grid>
 
-          <Grid is_flex4 margin="0 30px 0px 0">
+          <Grid is_flex4 margin="0px 20px 0px 0px" padding="10px 0px">
             <Button
               
               onClick={() => {
                 console.log("안녕");
               }}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
+              // onMouseEnter={handleMouseEnter}
+              // onMouseLeave={handleMouseLeave}
             >
-              모달
             </Button>
-            {/* 
-            <Modal _setModal={setOpen} /> */}
           </Grid>
+
         </Grid>
 
         <Grid margin="20px 0 0 0">
@@ -83,9 +75,9 @@ const Button = styled.button`
   box-shadow: 0 25px 10px -15px rgb(0 0 0 / 12%);
   background-color: #fff;
   cursor: pointer;
-  /* background-image: url("../images/button_image");
+  background-image: url(${button_image});
   background-size: cover;
-  background-position: center; */
+  background-position: center;
 `;
 
 const Text = styled.p`
