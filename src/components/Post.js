@@ -23,6 +23,9 @@ const Post = (props) => {
 
   const movePage = () => {
     history.push(`/detail/${props.id}`);
+
+    // 이동할때 scroll top으로 맞춰주기.
+    window.scrollTo(0, 0);
   };
 
   return (
