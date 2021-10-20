@@ -6,7 +6,7 @@ const instance = axios.create({
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json",
-    // Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
   },
 });
 
