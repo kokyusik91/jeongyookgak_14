@@ -20,7 +20,7 @@ function App() {
       <Route path='/shopping' exact component={Shopping} />
       <Route path='/Login' exact component={Login} />
       <Route path='/Signup' exact component={Signup} />
-      <Route path='/detail' exact component={Detail} />
+      <Route path='/detail/:id' exact component={Detail} />
       <Route path='/cart' exact component={Cart} />
       <Route path='/shopList' exact component={ShopList} />
     </ConnectedRouter>

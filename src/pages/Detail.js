@@ -1,24 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Grid from '../elements/Grid2';
 import Text from '../elements/Text';
 import data from '../config/data';
+import { useParams } from 'react-router-dom';
 import { history } from '../redux/configureStore';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { apis } from '../shared/axios';
 import { actionCreators as cartActions } from '../redux/modules/cart';
+import { actionCreators as postActions } from '../redux/modules/post';
 
 const Detail = () => {
   // console.log(data);
   const [수량, 수량변경] = useState(1);
-  const dispatch = useDispatch();
-  // 장바구니 목록 추가
-  const addCart_list = { ...data[0], count: 수량 };
+  const [데이터, 데이터변경] = useState({});
+
+  const params = parseInt(useParams().id);
+
+  // 이렇게 하는게 맞는건지 모르겠는데???
+  useEffect(async () => {
+    try {
+      const res = await apis.get(`api/detail?productId=${params}`);
+      데이터변경(res.data);
+    } catch (e) {
+      console.log('error ? :::::: ', e);
+    }
+  }, []);
+
+  const product_list = 데이터;
+  console.log(product_list);
+
+  const addCart_list = { ...product_list, count: 수량 };
+  // console.log(addCart_list);
 
   // 리덕스에 장바구니 목록 추가!!!!
   const addCartRequest = () => {
-    // console.log('리덕스에 추가할 데이터', addCart_list);
-    dispatch(cartActions.addCart(addCart_list));
-    history.push('/cart');
+    console.log('리덕스에 추가할 데이터', addCart_list);
+    // dispatch(cartActions.addCart(addCart_list));
+    // history.push('/cart');
   };
   const countMinus = () => {
     if (수량 < 2) {
@@ -44,19 +63,16 @@ const Detail = () => {
             <ImageDiv
               width='500px'
               margin='0 70px 0 30px'
-              src={data[2].image}
+              src={product_list.image}
             />
           </Grid>
           <Grid width='380px' height='500px'>
-            <Text size='28px'>
-              초신선 무항생제 돼지 삼겹살
-              <br /> 구이용
-            </Text>
+            <Text size='28px'>{product_list.title}</Text>
             <Text size='16px' color='#9b9b9b' margin='20px 0 0 0'>
               100g당 3,300원
             </Text>
             <Text size='24px' margin='6px 0 0 0'>
-              기준가 {data[2].price}원 (900g)
+              기준가 {product_list.price}원 (900g)
             </Text>
             <Hr></Hr>
             <Grid
@@ -108,7 +124,7 @@ const Detail = () => {
                   aligns='center'
                   border='1px solid #7c7c7c'
                 >
-                  {수량}
+                  <Text>{수량}</Text>
                 </Grid>
                 <Button
                   width='50px'
@@ -185,7 +201,7 @@ const Button = styled.button`
   background-color: ${(props) => props.bgcolor};
   ${(props) => (props.margin ? `margin:${props.margin}` : '')};
   border: none;
-  /* cursor: pointer; */
+  color: white;
   text-align: center;
   ${(props) => (props.border ? `border:${props.border}` : '')};
   /* border: 1px solid #fff; */

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Grid from '../elements/Grid';
 import Text from '../elements/Text';
-import { history } from '../redux/configureStore';
 
 const Items = (props) => {
   console.log('props로 전달받은 데이터', props);

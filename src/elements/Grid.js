@@ -76,10 +76,10 @@ const Grid = (props) => {
     is_border: is_border,
     text_align: text_align,
     updownborder: updownborder,
-    flexBasis:flexBasis,
+    flexBasis: flexBasis,
   };
 
-  if (type === "modal") {
+  if (type === 'modal') {
     return (
       <ModalGrid {...styles} onClick={_onClick}>
         {children}
@@ -96,8 +96,6 @@ const Grid = (props) => {
     </React.Fragment>
   );
 };
-
-
 
 Grid.defaultProps = {
   children: null,
@@ -136,16 +134,16 @@ Grid.defaultProps = {
   text_align: '',
   updownborder: '',
   overflow: false,
-  flexBasis:false,
+  flexBasis: false,
 };
 
 const ModalGrid = styled.div`
   position: relative;
   width: 35vw;
-  height: ${(props) => (props.height ? props.height : "auto")};
+  height: ${(props) => (props.height ? props.height : 'auto')};
   padding: 25px 30px;
   background-color: #f1f3f5;
-  overflow-y: ${(props) => (props.overflow ? "auto" : "")};
+  overflow-y: ${(props) => (props.overflow ? 'auto' : '')};
   @media ${({ theme }) => theme.tablet} {
     width: 80vw;
   }
@@ -199,7 +197,7 @@ const GridBox = styled.div`
     props.is_header ? `position: sticky; top: 0; z-index: 10;` : ''};
   ${(props) => (props.is_float ? `float: ${props.is_float}; ` : '')}
   ${(props) => (props.text_align ? `text-align: ${props.text_align}; ` : '')}
-  ${(props) => (props.flexBasis ? `flex-basis : 30% ` : "")};
+  ${(props) => (props.flexBasis ? `flex-basis : 30% ` : '')};
   @media (min-width: 501px) {
     ${(props) =>
       props.review_flex
@@ -211,7 +209,6 @@ const GridBox = styled.div`
       props.post_flex
         ? `display: flex; align-items: center; justify-content: center;`
         : ''}
-      
   }
 `;
 

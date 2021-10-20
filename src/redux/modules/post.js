@@ -1,10 +1,10 @@
-import { createAction, handleActions } from "redux-actions";
-import { produce } from "immer";
-import { apis } from "../../shared/axios";
-import axios from "axios";
+import { createAction, handleActions } from 'redux-actions';
+import { produce } from 'immer';
+import { apis } from '../../shared/axios';
+import axios from 'axios';
 
 //액션 타입
-const SET_POST = "SET_POST";
+const SET_POST = 'SET_POST';
 
 //액션 생성함수
 
@@ -14,23 +14,22 @@ const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
 
 const initialState = {
   list: [
-    {
-      id: "id",
-      category: "육류",
-      title: "고기",
-      price: 10000,
-      image:
-        "https://img.huffingtonpost.com/asset/602c66fc240000ae01cbc1e2.jpeg?cache=YXkQIJs6ue&ops=1778_1000",
-    },
-
-    {
-      id: "id2",
-      category: "과일",
-      title: "사과",
-      price: 8000,
-      image:
-        "https://cdn.mkhealth.co.kr/news/photo/202010/50970_51164_4758.jpg",
-    },
+    // {
+    //   id: "id",
+    //   category: "육류",
+    //   title: "고기",
+    //   price: 10000,
+    //   image:
+    //     "https://img.huffingtonpost.com/asset/602c66fc240000ae01cbc1e2.jpeg?cache=YXkQIJs6ue&ops=1778_1000",
+    // },
+    // {
+    //   id: "id2",
+    //   category: "과일",
+    //   title: "사과",
+    //   price: 8000,
+    //   image:
+    //     "https://cdn.mkhealth.co.kr/news/photo/202010/50970_51164_4758.jpg",
+    // },
   ],
 };
 
