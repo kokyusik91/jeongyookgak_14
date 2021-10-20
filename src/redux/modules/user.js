@@ -12,11 +12,13 @@ const LogOut = createAction(LOG_OUT, () => {});
 
 //초기값
 const initialState = {
-  userInfo: {
-    userId: "shrkdvy@gmail.com",
-    nickname: "강표",
+  user: {
+    userInfo: {
+      userId: "",
+      nickname: "",
+    },
+    isLogin: false,
   },
-  isLogin: false,
 };
 
 //middleWare
@@ -37,6 +39,7 @@ const SignupDB = (userId, userNickname, userPw, userPwCheck) => {
         // console.log(res.data.result)
         window.alert("회원에 성공적으로 가입했습니다.");
         history.push("/Login");
+        console.log(res);
       })
       .catch((error) => {
         window.alert("회원가입 실패", error);
@@ -51,7 +54,23 @@ const GetUserDB = (user) => {
     apis
       .login(user)
       .then((res) => {
+<<<<<<< HEAD
         console.log(res.data);
+=======
+        console.log(res);
+        const USER_TOKEN = res.data.token;
+        window.sessionStorage.setItem("USER_TOKEN", USER_TOKEN);
+
+        const user = {
+          userInfo: { email: res.data.email, nickname: res.data.nickname },
+          isLogin: true,
+        };
+
+        dispatch(SetUser(user));
+
+        window.alert("성공적으로 로그인이 되었습니다!!");
+        history.push("/");
+>>>>>>> feature_Login
       })
       .catch((error) => {
         console.log(error, "로그인 실패");
@@ -61,12 +80,33 @@ const GetUserDB = (user) => {
 
 //로그인 체크
 const LoginCheck = () => {
-  return function (dispatch, getState, { history }) {};
+  return function (dispatch, getState, { history }) {
+    apis
+      .loginCheck()
+      .then((res) => {
+        console.log(res, "로그인 체크");
+
+        const user = {
+          userInfo: { email: res.data.email, nickname: res.data.nickname },
+          isLogin: true,
+        };
+
+        dispatch(SetUser(user));
+      })
+      .catch((error) => {
+        console.log(error, "로그인체크 실패");
+      });
+  };
 };
 
 //로그아웃
 const LogOutDB = () => {
-  return function (dispatch, getState, { history }) {};
+  return function (dispatch, getState, { history }) {
+    sessionStorage.removeItem("USER_TOKEN");
+    dispatch(LogOut());
+    window.alert("로그아웃 되었습니다!");
+    history.push("/");
+  };
 };
 
 //reducer
@@ -74,13 +114,14 @@ export default handleActions(
   {
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
-        draft.user.userInfo = action.payload.userInfo;
-        draft.user.isLogin = true;
+        // console.log(action.payload.user);
+        draft.user.userInfo = action.payload.user.userInfo;
+        draft.user.isLogin = action.payload.user.isLogin;
       }),
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
-        draft.user.userInfo = action.payload.userInfo;
-        draft.user.isLogin = true;
+        // draft.userInfo = action.payload.userInfo;
+        // draft.isLogin = ;
       }),
   },
   initialState

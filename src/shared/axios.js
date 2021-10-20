@@ -6,15 +6,53 @@ const instance = axios.create({
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json",
-    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+    // "X-AUTH-TOKEN": `${sessionStorage.getItem("USER_TOKEN")}`,
+
+    Authorization: `Bearer ${sessionStorage.getItem("USER_TOKEN")}`,
   },
 });
+
+instance.interceptors.request.use(
+  function (config) {
+    // 요청 성공 직전 호출됩니다.
+    // axios 설정값을 넣습니다. (사용자 정의 설정도 추가 가능)
+
+    console.log(config);
+    // console.log(config, "요청성공 직전");
+    return config;
+  },
+  function (error) {
+    // 요청 에러 직전 호출됩니다.
+    return Promise.reject(error);
+  }
+);
+
+instance.interceptors.response.use(
+  function (response) {
+    console.log(response, "응답 성공직전");
+    /*
+      http status가 200인 경우
+      응답 성공 직전 호출됩니다. 
+      .then() 으로 이어집니다.
+  */
+    return response;
+  },
+  function (error) {
+    /*
+      http status가 200이 아닌 경우
+      응답 에러 직전 호출됩니다.
+      .catch() 으로 이어집니다.    
+  */
+    return Promise.reject(error);
+  }
+);
 
 // headers : {'Authorization': `Bearer ${sessionStorage.getItem('token')}`}
 export const apis = {
   //User
   signUp: (userInfo) => instance.post("api/signup", userInfo),
   login: (userInfo) => instance.post("api/login", userInfo),
+  loginCheck: () => instance.get("/api/login/check"),
 
   get: (url = "/") => instance.get(`${url}`),
   create: (url = "/", contents = {}) => instance.post(`${url}`, contents),
