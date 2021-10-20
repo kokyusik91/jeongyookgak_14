@@ -21,7 +21,7 @@ const Login = () => {
       window.alert('이메일 형식이 맞지않습니다.');
     }
 
-    dispatch(userActions.GetUserDB({ userId, pw }));
+    dispatch(userActions.GetUserDB({ email:userId, pw:pw }));
   };
 
   return (

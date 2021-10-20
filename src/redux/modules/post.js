@@ -7,6 +7,7 @@ import axios from 'axios';
 const SET_POST = 'SET_POST';
 const SET_CATEGORY = 'SET_CATEGORY';
 
+
 //액션 생성함수
 
 const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
@@ -18,6 +19,7 @@ const setCategory = createAction(SET_CATEGORY, (category_list) => ({
 
 const initialState = {
   list: [],
+
   category_list: [],
 };
 
@@ -38,13 +40,15 @@ const getPostDB = () => {
 //미들웨어
 const getCategoryDB = (category) => {
   return (dispatch) => {
-    // console.log(category)
+    console.log(category)
     apis
       .get(`api/list?category=${category}`)
       // 헤더 포함되어있음
       .then((res) => {
-        // console.log(res.data.products);
+        console.log('포스트 모듈1',res.data.products);
+        console.log('포스트 모듈2',res.data.categoryImage );
         const category_list = res.data.products;
+        // const category_image = res.data.categoryImage 
         dispatch(setCategory(category_list));
       });
   };

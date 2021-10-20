@@ -9,10 +9,19 @@ import { history } from '../redux/configureStore';
 
 const Post = (props) => {
   const { id, category, title, price, image, imageDetail } = props;
-  console.log('각각의 프롭스', props.id);
-  // const [open, setOpen] = React.useState(false);
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
+  // console.log('각각의 프롭스', props.id);
+
+  const [modal, setModal] = React.useState(false);
+  const modalOpen = () => setModal(true);
+  const modalClose = () => setModal(false);
+
+//  const modalOnoff = () => {
+//       if(!modal){
+//         modalOpen()
+//       }else{
+//         modalClose()
+//       }
+//   }
 
   // const handleMouseEnter = (e) => {
   //   e.target.style.background = 'black';
@@ -28,15 +37,15 @@ const Post = (props) => {
   return (
     <React.Fragment>
       <Grid margin='0 20px 15px 0' flexBasis>
-        <Grid bg='#f9f7f8' width='100%' _onClick={movePage}>
-          <Grid>
-            <Image bgi={image} width='140px' margin='0px 30px'></Image>
+        <Grid bg='#f9f7f8' width='100%' >
+          <Grid _onClick={movePage}>
+            <Image bgi={image} width='140px' margin='0px 30px' ></Image>
           </Grid>
 
           <Grid is_flex4 margin='0px 20px 0px 0px' padding='10px 0px'>
             <Button
               onClick={() => {
-                console.log('안녕');
+                modalOpen()
               }}
               // onMouseEnter={handleMouseEnter}
               // onMouseLeave={handleMouseLeave}
@@ -53,7 +62,10 @@ const Post = (props) => {
           </Text>
         </Grid>
       </Grid>
+      {modal === true ? <Modal _modalClose={modalClose} _id={id}/> : ''}
     </React.Fragment>
+    
+    
   );
 };
 

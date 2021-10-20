@@ -34,6 +34,7 @@ const SignupDB = (userId, userNickname, userPw, userPwCheck) => {
     apis
       .signUp(userInfo)
       .then((res) => {
+        // console.log(res.data.result)
         window.alert("회원에 성공적으로 가입했습니다.");
         history.push("/Login");
       })
@@ -46,10 +47,11 @@ const SignupDB = (userId, userNickname, userPw, userPwCheck) => {
 //로그인
 const GetUserDB = (user) => {
   return function (dispatch, getState, { history }) {
+    // console.log(user)
     apis
       .login(user)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
       })
       .catch((error) => {
         console.log(error, "로그인 실패");

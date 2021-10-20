@@ -11,7 +11,7 @@ const Shopping = () => {
 
   const dispatch = useDispatch();
   const category_list = useSelector((state) => state.post.category_list);
-  console.log(category_list);
+  console.log('쇼핑하기페이지', category_list);
 
   let category = null;
   // const [category, setCategory] = React.useState();
@@ -24,6 +24,7 @@ const Shopping = () => {
   React.useEffect(() => {
     dispatch(useActions.getCategoryDB("PORK"));
   }, []);
+
 
   return (
     <React.Fragment>
