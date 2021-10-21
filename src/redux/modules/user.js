@@ -54,10 +54,7 @@ const GetUserDB = (user) => {
     apis
       .login(user)
       .then((res) => {
-<<<<<<< HEAD
-        console.log(res.data);
-=======
-        console.log(res);
+        console.log("로그인정보",res);
         const USER_TOKEN = res.data.token;
         window.sessionStorage.setItem("USER_TOKEN", USER_TOKEN);
 
@@ -70,7 +67,6 @@ const GetUserDB = (user) => {
 
         window.alert("성공적으로 로그인이 되었습니다!!");
         history.push("/");
->>>>>>> feature_Login
       })
       .catch((error) => {
         console.log(error, "로그인 실패");

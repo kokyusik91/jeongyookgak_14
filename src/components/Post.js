@@ -65,7 +65,7 @@ const Post = (props) => {
           </Text>
         </Grid>
       </Grid>
-      {modal === true ? <Modal _modalClose={modalClose} _id={id}/> : ''}
+      {modal === true ? <Modal _modalClose={modalClose} {...props}/> : ''}
     </React.Fragment>
     
     

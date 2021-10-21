@@ -19,13 +19,9 @@ const Login = () => {
 
     if (!emailCheck(userId)) {
       window.alert("이메일 형식이 맞지않습니다.");
-    }
+    } 
 
-<<<<<<< HEAD
     dispatch(userActions.GetUserDB({ email:userId, pw:pw }));
-=======
-    dispatch(userActions.GetUserDB({ email: userId, pw: pw }));
->>>>>>> feature_Login
   };
 
   return (

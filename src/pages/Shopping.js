@@ -11,7 +11,9 @@ const Shopping = () => {
 
   const dispatch = useDispatch();
   const category_list = useSelector((state) => state.post.category_list);
-  console.log('쇼핑하기페이지', category_list);
+  const category_image = useSelector((state) => state.post.category_image);
+  console.log('쇼핑하기페이지 자료', category_list);
+  console.log('쇼핑하기페이지 이미지', category_image);
 
   let category = null;
   // const [category, setCategory] = React.useState();
@@ -29,7 +31,7 @@ const Shopping = () => {
   return (
     <React.Fragment>
       <Grid>
-        <Image bg="green" bgi={shopping_image1} width="13vw" />
+        <Image bg="green" bgi={category_image} width="13vw" />
       </Grid>
 
       <Grid width="60vw" margin="4rem auto" flex>
