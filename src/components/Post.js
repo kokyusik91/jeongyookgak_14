@@ -67,7 +67,11 @@ const Post = (props) => {
           </Text>
         </Grid>
       </Grid>
+<<<<<<< HEAD
       {modal === true ? <Modal _modalClose={modalClose} _id={id} /> : ""}
+=======
+      {modal === true ? <Modal _modalClose={modalClose} {...props}/> : ''}
+>>>>>>> develop
     </React.Fragment>
   );
 };

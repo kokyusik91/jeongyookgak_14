@@ -7,7 +7,7 @@ const instance = axios.create({
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json",
 
-    Authorization: `Bearer ${sessionStorage.getItem("USER_TOKEN")}`,
+    Authorization: `Bearer ${sessionStorage.getItem("USER_TOKEN")}`, 
   },
 });
 
@@ -54,7 +54,7 @@ export const apis = {
   loginCheck: () => instance.get("/api/login/check"),
 
   get: (url = "/") => instance.get(`${url}`),
-  create: (url = "/", contents = {}) => instance.post(`${url}`, contents),
+  create: (contents) => instance.post("/api/cart", contents),
   update: (url = "/", contents = {}) => instance.patch(`${url}`, contents),
   delete: (url = "", id = "") => instance.delete(`${url}/${id}`),
   getReply: (url = "/", id = "") => instance.get(`${url}/${id}`),

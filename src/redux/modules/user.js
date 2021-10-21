@@ -51,7 +51,7 @@ const GetUserDB = (user) => {
     apis
       .login(user)
       .then((res) => {
-        console.log(res);
+        console.log("로그인정보", res);
         const USER_TOKEN = res.data.token;
         window.sessionStorage.setItem("USER_TOKEN", USER_TOKEN);
 
