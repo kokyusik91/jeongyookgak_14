@@ -1,11 +1,6 @@
-<<<<<<< HEAD
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-=======
-import { createAction, handleActions } from 'redux-actions';
-import { produce } from 'immer';
-import { apis } from '../../shared/axios';
->>>>>>> develop
+import { apis } from "../../shared/axios";
 
 // action type
 const SET_CART = "SET_CART";
@@ -45,26 +40,25 @@ const updateTotal_priceFB = (price) => {
 };
 
 const addcartDB = (id, count) => {
-  console.log(id)
-  console.log(count)
+  console.log(id);
+  console.log(count);
 
   const product_info = {
-    productid : id,
-    count : count
-  }
-  return (dispatch,{history},getState) => {
-    console.log(product_info)
-        apis
-        .create(product_info)
-        .then((res)=>{
-          console.log(res.data)
-
-        })
-        .catch((error) => {
-          console.log(error, "장바구니 추가실패");
-        });
-  }
-}
+    productid: id,
+    count: count,
+  };
+  return (dispatch, { history }, getState) => {
+    console.log(product_info);
+    apis
+      .create(product_info)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error, "장바구니 추가실패");
+      });
+  };
+};
 
 //Reducer
 export default handleActions(
