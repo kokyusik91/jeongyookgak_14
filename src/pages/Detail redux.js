@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Grid from '../elements/Grid2';
 import Text from '../elements/Text';
-import CommentList from '../pages/CommentList';
+import CommentList from './CommentList';
 import { useParams } from 'react-router-dom';
 import { history } from '../redux/configureStore';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,28 +10,36 @@ import { apis } from '../shared/axios';
 import { actionCreators as cartActions } from '../redux/modules/cart';
 import { actionCreators as postActions } from '../redux/modules/post';
 
-const Detail = () => {
+const DetailRedux = () => {
   // console.log(data);
   const [수량, 수량변경] = useState(1);
-  const [item, setItem] = useState({});
+  const [데이터, 데이터변경] = useState({});
   const dispatch = useDispatch();
   const params = parseInt(useParams().id);
   useEffect(async () => {
     try {
       const res = await apis.get(`api/detail?productId=${params}`);
-      setItem(res.data);
+      데이터변경(res.data);
     } catch (e) {
       console.log('error ? :::::: ', e);
     }
   }, []);
 
   // 서버에서 받아온 데이터를 state에 저장.
-  const product_list = item;
+  const product_list = 데이터;
+
+  // 수량 추가 버튼을 눌렀을때, 추가한 수량(key:value) 을 기존 객체에 추가해 새로운 객체를 만든다.
+  const addCart_list = {
+    ...product_list,
+    count: 수량,
+    total_price: product_list.price * 수량,
+  };
 
   // 리덕스에 장바구니 목록 추가 해보기
   const addCartRequest = () => {
     // console.log('리덕스에 추가할 데이터', addCart_list);
-    dispatch(cartActions.addCart());
+    dispatch(cartActions.addCart(addCart_list));
+    history.push('/cart');
   };
   const countMinus = () => {
     if (수량 < 2) {
@@ -205,4 +213,4 @@ const Button = styled.button`
   }
 `;
 
-export default Detail;
+export default DetailRedux;

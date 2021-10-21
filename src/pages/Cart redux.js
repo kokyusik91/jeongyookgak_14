@@ -8,8 +8,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { history } from '../redux/configureStore';
 import { actionCreators as cartActions } from '../redux/modules/cart';
 
-const Cart = () => {
+const CartRedux = () => {
   const carts = useSelector((state) => state.cart.carts_list);
+  const totalPrice = useSelector((state) => state.cart.all_total_price);
+  // console.log('리덕스에 받아온데이타', carts);
+  // console.log(totalPrice);
 
   const dispatch = useDispatch();
   const gotoShopping = () => {
@@ -17,11 +20,17 @@ const Cart = () => {
   };
   // console.log('useSelector로 받아온', carts);
   // 카트페이지에 들어왔을때, 장바구니에 추가한 목록 불러오기
+
   useEffect(() => {
+    // dispatch(cartActions.totalPrice());
     if (carts.length === 0) {
       dispatch(cartActions.setCart());
     }
   }, []);
+
+  // useEffect(() => {
+  //   dispatch(cartActions.totalPrice());
+  // }, []);
 
   // 쇼핑카트가 비었을때는 밑에 조건!!!
   if (carts.length !== 0) {
@@ -65,7 +74,7 @@ const Cart = () => {
                     총 상품 금액
                   </Text>
                   <Text size='15px' color='black'>
-                    0원
+                    {totalPrice}
                   </Text>
                 </GridPrice>
               </Grid>
@@ -112,4 +121,4 @@ const GridPrice = styled.div`
   justify-content: space-between;
 `;
 
-export default Cart;
+export default CartRedux;
