@@ -3,12 +3,12 @@ import axios from "axios";
 const instance = axios.create({
   // 기본적으로 우리가 바라볼 서버의 주소
   baseURL: "http://3.36.92.203",
-  headers: {
-    "content-type": "application/json;charset=UTF-8",
-    accept: "application/json",
+  // headers: {
+  //   "content-type": "application/json;charset=UTF-8",
+  //   accept: "application/json",
 
-    Authorization: `Bearer ${sessionStorage.getItem("USER_TOKEN")}`, 
-  },
+  //   Authorization: `Bearer ${sessionStorage.getItem("USER_TOKEN")}`,
+  // },
 });
 
 instance.interceptors.request.use(
@@ -16,7 +16,15 @@ instance.interceptors.request.use(
     // 요청 성공 직전 호출됩니다.
     // axios 설정값을 넣습니다. (사용자 정의 설정도 추가 가능)
 
-    console.log(config.data);
+    console.log(config, "요청 성공 직전");
+
+    config.headers = {
+      "content-type": "application/json;charset=UTF-8",
+      accept: "application/json",
+
+      Authorization: `Bearer ${sessionStorage.getItem("USER_TOKEN")}`,
+    };
+
     // console.log(config, "요청성공 직전");
     return config;
   },
