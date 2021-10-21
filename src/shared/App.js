@@ -20,6 +20,7 @@ function App() {
   const isToken = window.sessionStorage.getItem("USER_TOKEN") ? true : false;
   React.useEffect(() => {
     //로그인 체크.
+
     if (isToken) dispatch(userActions.LoginCheck());
   }, [dispatch, isToken]);
 

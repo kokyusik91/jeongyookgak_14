@@ -21,11 +21,7 @@ const Login = () => {
       window.alert("이메일 형식이 맞지않습니다.");
     }
 
-<<<<<<< HEAD
-    dispatch(userActions.GetUserDB({ email:userId, pw:pw }));
-=======
     dispatch(userActions.GetUserDB({ email: userId, pw: pw }));
->>>>>>> feature_Login
   };
 
   return (
@@ -62,6 +58,7 @@ const Login = () => {
               width="100%"
               background="black"
               color="#fff"
+              cursor="ture"
               onClick={() => {
                 login();
               }}

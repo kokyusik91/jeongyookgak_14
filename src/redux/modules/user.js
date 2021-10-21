@@ -14,16 +14,14 @@ const LogOut = createAction(LOG_OUT, () => {});
 const initialState = {
   user: {
     userInfo: {
-      userId: "",
-      nickname: "",
+      userId: null,
+      nickname: null,
     },
     isLogin: false,
   },
 };
 
 //middleWare
-
-//회원가입
 const SignupDB = (userId, userNickname, userPw, userPwCheck) => {
   const userInfo = {
     email: userId,
@@ -47,16 +45,12 @@ const SignupDB = (userId, userNickname, userPw, userPwCheck) => {
   };
 };
 
-//로그인
 const GetUserDB = (user) => {
   return function (dispatch, getState, { history }) {
     // console.log(user)
     apis
       .login(user)
       .then((res) => {
-<<<<<<< HEAD
-        console.log(res.data);
-=======
         console.log(res);
         const USER_TOKEN = res.data.token;
         window.sessionStorage.setItem("USER_TOKEN", USER_TOKEN);
@@ -70,7 +64,6 @@ const GetUserDB = (user) => {
 
         window.alert("성공적으로 로그인이 되었습니다!!");
         history.push("/");
->>>>>>> feature_Login
       })
       .catch((error) => {
         console.log(error, "로그인 실패");
@@ -78,7 +71,6 @@ const GetUserDB = (user) => {
   };
 };
 
-//로그인 체크
 const LoginCheck = () => {
   return function (dispatch, getState, { history }) {
     apis
@@ -99,7 +91,6 @@ const LoginCheck = () => {
   };
 };
 
-//로그아웃
 const LogOutDB = () => {
   return function (dispatch, getState, { history }) {
     sessionStorage.removeItem("USER_TOKEN");
@@ -114,14 +105,13 @@ export default handleActions(
   {
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
-        // console.log(action.payload.user);
         draft.user.userInfo = action.payload.user.userInfo;
         draft.user.isLogin = action.payload.user.isLogin;
       }),
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
-        // draft.userInfo = action.payload.userInfo;
-        // draft.isLogin = ;
+        draft.user.userInfo = null;
+        draft.user.isLogin = null;
       }),
   },
   initialState

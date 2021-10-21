@@ -6,7 +6,6 @@ const instance = axios.create({
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json",
-    // "X-AUTH-TOKEN": `${sessionStorage.getItem("USER_TOKEN")}`,
 
     Authorization: `Bearer ${sessionStorage.getItem("USER_TOKEN")}`,
   },
@@ -17,7 +16,7 @@ instance.interceptors.request.use(
     // 요청 성공 직전 호출됩니다.
     // axios 설정값을 넣습니다. (사용자 정의 설정도 추가 가능)
 
-    console.log(config);
+    console.log(config.data);
     // console.log(config, "요청성공 직전");
     return config;
   },

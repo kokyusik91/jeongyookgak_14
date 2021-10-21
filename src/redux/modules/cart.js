@@ -1,14 +1,14 @@
-import { createAction, handleActions } from 'redux-actions';
-import { produce } from 'immer';
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
 
 // action type
-const SET_CART = 'SET_CART';
-const ADD_CART = 'ADD_CART';
-const UPDATE_CART = 'UPDATE_CART';
-const DELETE_CART = 'DELETE_CART';
-const UPDATE_PRICE = 'UPDATE_PRICE';
-const PLUS_PRICE = 'PLUS_PRICE';
-const MINUS_PRICE = 'MINUS_PRICE';
+const SET_CART = "SET_CART";
+const ADD_CART = "ADD_CART";
+const UPDATE_CART = "UPDATE_CART";
+const DELETE_CART = "DELETE_CART";
+const UPDATE_PRICE = "UPDATE_PRICE";
+const PLUS_PRICE = "PLUS_PRICE";
+const MINUS_PRICE = "MINUS_PRICE";
 
 // action Creator
 const setCart = createAction(SET_CART, () => ({}));
@@ -61,7 +61,7 @@ export default handleActions(
       }),
     [DELETE_CART]: (state, action) =>
       produce(state, (draft) => {
-        console.log('리듀서로 넘어온 productID', action.payload.productId);
+        console.log("리듀서로 넘어온 productID", action.payload.productId);
         let newArray = state.carts_list.filter((el) => {
           return el.id !== action.payload.productId;
         });
@@ -69,7 +69,8 @@ export default handleActions(
       }),
     [PLUS_PRICE]: (state, action) =>
       produce(state, (draft) => {
-        // draft.total_Price =
+        console.log(action.payload.amount);
+        draft.total_Price = action.payload.amount;
       }),
     [MINUS_PRICE]: (state, action) => produce(state, (draft) => {}),
   },
