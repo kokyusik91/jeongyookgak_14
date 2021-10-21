@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -9,27 +11,38 @@ const Items = (props) => {
   // console.log('props로 전달받은 데이터', props);
   const [수량, 수량변경] = useState(props.count);
   const user = useSelector((state) => state.user);
-  // console.log('현재상태유저', user);
   const dispatch = useDispatch();
-
   const deleteItem = () => {
-    dispatch(cartActions.deleteCart(props.id));
+    dispatch(cartActions.deleteCartDB(props.id));
   };
 
+  const data = {
+    productId: props.id,
+    count: 수량,
+    price: Number(props.price),
+  };
+
+  //뺄셈
   const countMinus = () => {
     if (수량 < 2) {
       return;
     } else {
+      data.count = data.count - 1;
       수량변경(수량 - 1);
-      dispatch(cartActions.minusPriceFB(props.id));
+      // dispatch(cartActions.minusPriceFB(props.id));
+      dispatch(cartActions.minusCartDB(data));
     }
   };
+  // console.log(수량);
 
+  //덧셈
   const countPlus = () => {
+    data.count = data.count + 1;
     수량변경(수량 + 1);
     // 뷰는 컴포넌트에서
     // 실제 계산은 리듀서에서 진행 action만 보내면 기존 count에 +1
-    dispatch(cartActions.plusPriceFB(props.id));
+    // dispatch(cartActions.plusPriceFB(props.id));
+    dispatch(cartActions.plusCartDB(data));
   };
 
   return (

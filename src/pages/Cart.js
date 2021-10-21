@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Grid from '../elements/Grid';
@@ -10,20 +12,21 @@ import { actionCreators as cartActions } from '../redux/modules/cart';
 
 const Cart = () => {
   const carts = useSelector((state) => state.cart.carts_list);
-
+  const all_total_price = useSelector((state) => state.cart.all_total_price);
   const dispatch = useDispatch();
+
   const gotoShopping = () => {
     history.push('/shopping');
   };
-  // console.log('useSelector로 받아온', carts);
+
   // 카트페이지에 들어왔을때, 장바구니에 추가한 목록 불러오기
   useEffect(() => {
     if (carts.length === 0) {
-      dispatch(cartActions.setCart());
+      dispatch(cartActions.setCartDB());
     }
   }, []);
 
-  // 쇼핑카트가 비었을때는 밑에 조건!!!
+  // 쇼핑목록이 있을때
   if (carts.length !== 0) {
     return (
       <React.Fragment>
@@ -65,24 +68,41 @@ const Cart = () => {
                     총 상품 금액
                   </Text>
                   <Text size='15px' color='black'>
-                    0원
+                    {all_total_price}
                   </Text>
                 </GridPrice>
               </Grid>
             </GridTable2>
           </Grid>
         </Grid>
-        <button
-          onClick={() => {
-            history.push('/detail');
-          }}
-        >
-          뒤로가기
-        </button>
       </React.Fragment>
     );
-  } else {
-    return <button onClick={gotoShopping}>쇼핑하러가기</button>;
+  }
+  // 쇼핑목록이 없을때
+  else {
+    return (
+      <React.Fragment>
+        <Grid width='80%' margin='100px auto'>
+          <Text color='black' size='32px' textAlign='center'>
+            장바구니
+          </Text>
+          <EmptyGrid>
+            <Text
+              size='38px'
+              color='#e1dedf'
+              margin='76px 0 0 0'
+              textAlign='center'
+            >
+              장바구니에 담은 상품이 없습니다.
+            </Text>
+            <GoButton onClick={gotoShopping}>
+              <Text size='16px'>쇼핑계속하기</Text>
+              <Text size='16px'>👉🏻</Text>
+            </GoButton>
+          </EmptyGrid>
+        </Grid>
+      </React.Fragment>
+    );
   }
 };
 
@@ -110,6 +130,26 @@ const GridPrice = styled.div`
   border-bottom: 1px solid #f8f8f8;
   display: flex;
   justify-content: space-between;
+`;
+
+const EmptyGrid = styled.div`
+  width: 80vw;
+  margin: 52px auto;
+  border-top: 1px solid black;
+  border-bottom: 1px solid grey;
+`;
+
+const GoButton = styled.button`
+  background-color: black;
+  width: 260px;
+  height: 70px;
+  display: block;
+  margin: 30px auto 60px auto;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 `;
 
 export default Cart;

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from 'react';
 import styled from 'styled-components';
 import Grid from '../elements/Grid';
@@ -15,7 +17,7 @@ import { history } from '../redux/configureStore';
 const Main = () => {
   const dispatch = useDispatch();
   const post_list = useSelector((state) => state.post.list);
-  console.log('메인페이지 데이터',post_list);
+  // console.log('메인페이지 데이터',post_list);
 
   React.useEffect(() => {
     dispatch(userAction.getPostDB());

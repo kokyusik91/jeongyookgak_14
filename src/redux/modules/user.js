@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import { apis } from '../../shared/axios';
@@ -37,7 +39,7 @@ const SignupDB = (userId, userNickname, userPw, userPwCheck) => {
         // console.log(res.data.result)
         window.alert('회원에 성공적으로 가입했습니다.');
         history.push('/Login');
-        console.log(res);
+        // console.log(res);
       })
       .catch((error) => {
         window.alert('회원가입 실패', error);
@@ -51,7 +53,7 @@ const GetUserDB = (user) => {
     apis
       .login(user)
       .then((res) => {
-        console.log('로그인정보', res);
+        // console.log('로그인정보', res);
         const USER_TOKEN = res.data.token;
         window.sessionStorage.setItem('USER_TOKEN', USER_TOKEN);
 
@@ -76,7 +78,7 @@ const LoginCheck = () => {
     apis
       .loginCheck()
       .then((res) => {
-        console.log(res, '로그인 체크');
+        // console.log(res, '로그인 체크');
 
         const user = {
           userInfo: { email: res.data.email, nickname: res.data.nickname },

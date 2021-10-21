@@ -1,8 +1,10 @@
-import axios from "axios";
+/* eslint-disable */
+
+import axios from 'axios';
 
 const instance = axios.create({
   // 기본적으로 우리가 바라볼 서버의 주소
-  baseURL: "http://3.36.92.203",
+  baseURL: 'http://3.36.92.203',
   // headers: {
   //   "content-type": "application/json;charset=UTF-8",
   //   accept: "application/json",
@@ -16,13 +18,13 @@ instance.interceptors.request.use(
     // 요청 성공 직전 호출됩니다.
     // axios 설정값을 넣습니다. (사용자 정의 설정도 추가 가능)
 
-    console.log(config, "요청 성공 직전");
+    // console.log(config, '요청 성공 직전');
 
     config.headers = {
-      "content-type": "application/json;charset=UTF-8",
-      accept: "application/json",
+      'content-type': 'application/json;charset=UTF-8',
+      accept: 'application/json',
 
-      Authorization: `Bearer ${sessionStorage.getItem("USER_TOKEN")}`,
+      Authorization: `Bearer ${sessionStorage.getItem('USER_TOKEN')}`,
     };
 
     // console.log(config, "요청성공 직전");
@@ -36,7 +38,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   function (response) {
-    console.log(response, "응답 성공직전");
+    // console.log(response, '응답 성공직전');
     /*
       http status가 200인 경우
       응답 성공 직전 호출됩니다. 
@@ -57,22 +59,14 @@ instance.interceptors.response.use(
 // headers : {'Authorization': `Bearer ${sessionStorage.getItem('token')}`}
 export const apis = {
   //User
-  signUp: (userInfo) => instance.post("api/signup", userInfo),
-  login: (userInfo) => instance.post("api/login", userInfo),
-  loginCheck: () => instance.get("/api/login/check"),
+  signUp: (userInfo) => instance.post('api/signup', userInfo),
+  login: (userInfo) => instance.post('api/login', userInfo),
+  loginCheck: () => instance.get('/api/login/check'),
 
-  get: (url = "/") => instance.get(`${url}`),
-  create: (contents) => instance.post("/api/cart", contents),
-  update: (url = "/", contents = {}) => instance.patch(`${url}`, contents),
-  delete: (url = "", id = "") => instance.delete(`${url}/${id}`),
-  getReply: (url = "/", id = "") => instance.get(`${url}/${id}`),
+  get: (url = '/') => instance.get(`${url}`),
+  create: (contents) => instance.post('/api/cart', contents),
+  put: (url = '/', contents) => instance.put(`${url}`, contents),
+  update: (url = '/', contents = {}) => instance.patch(`${url}`, contents),
+  delete: (url = '/', contents) => instance.delete(`${url}`, contents),
+  getReply: (url = '/', id = '') => instance.get(`${url}/${id}`),
 };
-
-// apis
-// .getPost()
-// .then((response) => {
-//   console.log(response.data);
-// })
-// .catch((err) => {
-//   console.log(err);
-// });
