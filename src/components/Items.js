@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Grid from '../elements/Grid';
 import Text from '../elements/Text';
@@ -8,9 +8,10 @@ import { actionCreators as cartActions } from '../redux/modules/cart';
 const Items = (props) => {
   // console.log('props로 전달받은 데이터', props);
   const [수량, 수량변경] = useState(props.count);
+  const user = useSelector((state) => state.user);
+  // console.log('현재상태유저', user);
   const dispatch = useDispatch();
   const deleteItem = () => {
-    console.log(props.id);
     dispatch(cartActions.deleteCart(props.id));
   };
 
@@ -19,17 +20,16 @@ const Items = (props) => {
       return;
     } else {
       수량변경(수량 - 1);
-      dispatch(cartActions.minusPrice());
-      // console.log(수량);
+      dispatch(cartActions.minusPriceFB(props.id));
     }
   };
   const countPlus = () => {
     수량변경(수량 + 1);
-    dispatch(cartActions.plusPrice(수량));
-    // console.log(수량);
+    // 뷰는 컴포넌트에서
+    // 실제 계산은 리듀서에서 진행 action만 보내면 기존 count에 +1
+    dispatch(cartActions.plusPriceFB(props.id));
   };
 
-  useEffect(() => {}, [수량]);
   return (
     <Libox>
       <ImageBox width='109px' src={props.image} />
