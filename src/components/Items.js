@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -6,43 +8,61 @@ import Text from '../elements/Text';
 import { actionCreators as cartActions } from '../redux/modules/cart';
 
 const Items = (props) => {
-  // console.log('props로 전달받은 데이터', props);
+  console.log('props로 전달받은 데이터', props);
   const [수량, 수량변경] = useState(props.count);
   const user = useSelector((state) => state.user);
-  // console.log('현재상태유저', user);
   const dispatch = useDispatch();
-
   const deleteItem = () => {
-    dispatch(cartActions.deleteCart(props.id));
+    dispatch(cartActions.deleteCartDB(props.id));
+  };
+  // 숫자를 '원'으로 바꿔주는 함수
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  const data = {
+    productId: props.id,
+    count: 수량,
+    price: Number(props.price),
   };
 
+  //뺄셈
   const countMinus = () => {
     if (수량 < 2) {
       return;
     } else {
+      data.count = data.count - 1;
       수량변경(수량 - 1);
-      dispatch(cartActions.minusPriceFB(props.id));
+      //총 가격 뺄셈
+      dispatch(cartActions.minusCartDB(data));
     }
   };
+  // 바깥에서 console을 찍으면 원하는 state값이 나온다.
+  // console.log(수량);
 
+  //덧셈
   const countPlus = () => {
+    data.count = data.count + 1;
     수량변경(수량 + 1);
     // 뷰는 컴포넌트에서
     // 실제 계산은 리듀서에서 진행 action만 보내면 기존 count에 +1
-    dispatch(cartActions.plusPriceFB(props.id));
+    //총 가격 덧셈
+    dispatch(cartActions.plusCartDB(data));
   };
 
   return (
     <Libox>
       <ImageBox width='109px' src={props.image} />
-      <Grid margin='0 0 0 53px' width='284px'>
-        <Text color='black'>{props.title}</Text>
-        <Text color='black'>보통(16mm)</Text>
+      <Grid>
+        <Text color='black' size='16px' width='284px'>
+          {props.title}
+        </Text>
+        <Text color='black' size='13px' color='#bab8b8'>
+          보통(16mm)
+        </Text>
       </Grid>
-      <Text color='black' width='80px'>
-        {props.price}
-      </Text>
-      <Grid is_flex width='118px' height='38px' justify='center'>
+      <Text color='#bab8b8'>{/* {props.price} */}600g 기준</Text>
+      <ButtonContainer>
         <Button
           width='44px'
           height='38px'
@@ -50,9 +70,11 @@ const Items = (props) => {
           margin='0'
           onClick={countMinus}
         >
-          <Text color='black'>-</Text>
+          <Text color='#9b9b9b' bold size='20px'>
+            -
+          </Text>
         </Button>
-        <Grid width='44px' height='38px' margin='0 auto'>
+        <Grid is_flex justify='center' aligns='center' padding='6px'>
           <Text color='black'>{수량}</Text>
         </Grid>
         <Button
@@ -62,19 +84,27 @@ const Items = (props) => {
           margin='0'
           onClick={countPlus}
         >
-          <Text color='black'>+</Text>
+          <Text color='#9b9b9b' bold size='20px'>
+            +
+          </Text>
         </Button>
-      </Grid>
-      <Grid width='147px'>
-        <Text color='black' width='143px'>
-          {props.price * 수량}원
+      </ButtonContainer>
+
+      <Grid>
+        <Text color='black' size='16px'>
+          {numberWithCommas(props.price * 수량)}원
         </Text>
       </Grid>
-      <Button width='40px' height='40px' color='black' onClick={deleteItem}>
-        <Text color='black' width='143px'>
-          X
-        </Text>
-      </Button>
+      <ButtonContainer2>
+        <Button
+          width='40px'
+          height='40px'
+          bgcolor='transparent'
+          onClick={deleteItem}
+        >
+          <Text color='#bab8b8'>X</Text>
+        </Button>
+      </ButtonContainer2>
     </Libox>
   );
 };
@@ -82,15 +112,14 @@ const Items = (props) => {
 const Libox = styled.li`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: #fff;
-  border-bottom: 1px solid #f8f8f8;
+  border-bottom: 1px solid #e0dedf;
+  padding: 25px 0 25px 10px;
   color: 'black';
 `;
 
-const ImageBox = styled.img`
-  display: block;
-  margin-left: 24px;
-`;
+const ImageBox = styled.img``;
 
 const Button = styled.button`
   width: ${(props) => props.width};
@@ -102,6 +131,21 @@ const Button = styled.button`
   ${(props) => (props.border ? `border:${props.border}` : '')};
   border: none;
   color: 'black';
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  width: 118px;
+  border: 1px solid #e2e2e2;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ButtonContainer2 = styled.div`
+  display: flex;
+  border: 1px solid #e2e2e2;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default Items;

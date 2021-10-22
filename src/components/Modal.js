@@ -1,20 +1,20 @@
-import React from "react";
-import styled from "styled-components";
-import Grid from "../elements/Grid";
-import {actionCreators as userAction} from "../redux/modules/cart"
-import { useDispatch,useSelector } from "react-redux";
+/* eslint-disable */
 
+import React from 'react';
+import styled from 'styled-components';
+import Grid from '../elements/Grid';
+import { actionCreators as userAction } from '../redux/modules/cart';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Modal = (props) => {
   const dispatch = useDispatch();
 
   const addcart = () => {
-    dispatch(userAction.addcartDB(id,count))
-  }
+    dispatch(userAction.addCartDB(id, count));
+  };
 
-
-  const {_modalClose, id, category, title, price, image, imageDetail } = props
-  console.log('모달데이터',props)
+  const { _modalClose, id, category, title, price, image, imageDetail } = props;
+  console.log('모달데이터', props);
   // const category_list = useSelector((state) => state.post.category_list)
   // console.log('모달 카테고리 리스트',category_list)
 
@@ -31,46 +31,49 @@ const Modal = (props) => {
     if (count > 1) setCount(count - 1);
   };
 
-
-
   return (
     <ModalParent>
-      <Grid width="500px" bg="white" radius="5px" position="absolute">
+      <Grid width='500px' bg='white' radius='5px' position='absolute'>
         <Grid>
           <Cancelbtn onClick={_modalClose}>X</Cancelbtn>
         </Grid>
 
-        <Grid padding="40px 40px 0px 40px">
+        <Grid padding='40px 40px 0px 40px'>
           <Grid>
-            <Text size="25px" bold center="true">
+            <Text size='25px' bold center='true'>
               {title}
             </Text>
           </Grid>
 
-          <Grid is_flex margin="40px 0 0 0" border="1px solid #e1dedf">
+          <Grid is_flex margin='40px 0 0 0' border='1px solid #e1dedf'>
             <Countbtn onClick={decreaseCount}>-</Countbtn>
-            <Text >{count}</Text>
+            <Text>{count}</Text>
             <Countbtn onClick={increaseCount}>+</Countbtn>
           </Grid>
 
-          <Grid margin="14px 0 0 0">
-            <Text size="16px" bold>
+          <Grid margin='14px 0 0 0'>
+            <Text size='16px' bold>
               옵션선택
             </Text>
           </Grid>
 
-          <Grid height="50px" margin="5px 0 0 0" border="1px solid #e1dedf" is_flex2>
-              <Text center="true" >보통(16mm)</Text>
+          <Grid
+            height='50px'
+            margin='5px 0 0 0'
+            border='1px solid #e1dedf'
+            is_flex2
+          >
+            <Text center='true'>보통(16mm)</Text>
           </Grid>
 
-          <Grid is_flex4 margin="10px 0  0 0">
-            <Text bold size="24px">
+          <Grid is_flex4 margin='10px 0  0 0'>
+            <Text bold size='24px'>
               {price * count}원
             </Text>
           </Grid>
         </Grid>
 
-        <Grid is_flex margin="10px 0  0 0">
+        <Grid is_flex margin='10px 0  0 0'>
           <Buybtn>바로구매</Buybtn>
           <Cartbtn onClick={addcart}>장바구니</Cartbtn>
         </Grid>
@@ -93,11 +96,11 @@ const ModalParent = styled.div`
 `;
 
 const Text = styled.p`
-  ${(props) => (props.center ? `text-align:center` : "")}
-  ${(props) => (props.color ? `color:${props.color}` : "")};
-  ${(props) => (props.size ? `font-size:${props.size}` : "")};
+  ${(props) => (props.center ? `text-align:center` : '')}
+  ${(props) => (props.color ? `color:${props.color}` : '')};
+  ${(props) => (props.size ? `font-size:${props.size}` : '')};
   ${(props) => (props.bold ? `font-weight:600 ` : `font-weight:400`)};
-  ${(props) => (props.border ? `border:${props.border}` : "")}
+  ${(props) => (props.border ? `border:${props.border}` : '')}
 `;
 
 const Cancelbtn = styled.button`
@@ -120,7 +123,7 @@ const Cancelbtn = styled.button`
 `;
 
 const Countbtn = styled.button`
- cursor: pointer;
+  cursor: pointer;
   color: #9b9b9b;
   font-size: 30px;
   background-color: white;
@@ -130,7 +133,7 @@ const Countbtn = styled.button`
 `;
 
 const Cartbtn = styled.button`
- cursor: pointer;
+  cursor: pointer;
   color: white;
   font-size: 16px;
   font-weight: 700;
@@ -141,7 +144,7 @@ const Cartbtn = styled.button`
 `;
 
 const Buybtn = styled.button`
- cursor: pointer;
+  cursor: pointer;
   color: white;
   font-size: 16px;
   font-weight: 700;

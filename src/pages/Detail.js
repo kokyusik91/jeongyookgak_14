@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Grid from '../elements/Grid2';
@@ -8,11 +10,11 @@ import { history } from '../redux/configureStore';
 import { useDispatch, useSelector } from 'react-redux';
 import { apis } from '../shared/axios';
 import { actionCreators as cartActions } from '../redux/modules/cart';
-import { actionCreators as postActions } from '../redux/modules/post';
 
 const Detail = () => {
   // console.log(data);
-  const [수량, 수량변경] = useState(1);
+  const [count, setCount] = useState(1);
+  // 서버에서 받아온 데이터
   const [item, setItem] = useState({});
   const dispatch = useDispatch();
   const params = parseInt(useParams().id);
@@ -27,19 +29,25 @@ const Detail = () => {
 
   // 서버에서 받아온 데이터를 state에 저장.
   const product_list = item;
+  const productId = item.id;
+  const productCount = count;
+
+  // function numberWithCommas(x) {
+  //   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  // }
 
   // 리덕스에 장바구니 목록 추가 해보기
   const addCartRequest = () => {
-    // console.log('리덕스에 추가할 데이터', addCart_list);
-    dispatch(cartActions.addCart());
+    dispatch(cartActions.addCartDB(productId, productCount));
+    // 스피너 들어가야함
   };
   const countMinus = () => {
-    if (수량 < 2) {
+    if (count < 2) {
       return;
-    } else 수량변경(수량 - 1);
+    } else setCount(count - 1);
   };
   const countPlus = () => {
-    수량변경(수량 + 1);
+    setCount(count + 1);
   };
 
   return (
@@ -86,6 +94,7 @@ const Detail = () => {
                 보통 16mm
               </Button>
             </Grid>
+
             <Grid
               width='100%'
               margin='29px 0 0 0'
@@ -105,27 +114,26 @@ const Detail = () => {
                   height='50px'
                   bgcolor='transparent'
                   border='1px solid #7c7c7c'
-                  margin='0'
                   onClick={countMinus}
                 >
                   -
                 </Button>
                 <Grid
-                  width='219px'
+                  width='100%'
                   height='50px'
                   is_flex
                   justify='center'
                   aligns='center'
                   border='1px solid #7c7c7c'
                 >
-                  <Text>{수량}</Text>
+                  <Text>{count}</Text>
                 </Grid>
                 <Button
                   width='50px'
                   height='50px'
                   bgcolor='transparent'
                   border='1px solid #7c7c7c'
-                  margin='0'
+                  margin='0px'
                   onClick={countPlus}
                 >
                   +
@@ -141,6 +149,7 @@ const Detail = () => {
                 height='60px'
                 bgcolor='#d0021b'
                 onClick={addCartRequest}
+                margin='0 0 0 20px'
               >
                 <Text>장바구니</Text>
               </Button>
@@ -163,18 +172,17 @@ const Detail = () => {
         </Grid>
       </Grid>
       <hr />
-      <Grid>
-        <ImageDiv
-          width='100%'
-          src='https://firebasestorage.googleapis.com/v0/b/jyg-custom-seoul-app/o/frontend%2Fdescriptions%2Fweb%2Fporkbelly-clean1.png?alt=media'
-        />
-      </Grid>
-      <Grid>
-        <ImageDiv
-          width='100%'
-          src='https://firebasestorage.googleapis.com/v0/b/jyg-custom-seoul-app/o/frontend%2Fdescriptions%2Fweb%2Fporkbelly-clean2.png?alt=media'
-        />
-      </Grid>
+
+      <ImageDiv
+        width='100%'
+        src='https://firebasestorage.googleapis.com/v0/b/jyg-custom-seoul-app/o/frontend%2Fdescriptions%2Fweb%2Fporkbelly-clean1.png?alt=media'
+      />
+
+      <ImageDiv
+        width='100%'
+        src='https://firebasestorage.googleapis.com/v0/b/jyg-custom-seoul-app/o/frontend%2Fdescriptions%2Fweb%2Fporkbelly-clean2.png?alt=media'
+      />
+
       <CommentList />
     </Grid>
   );
@@ -198,11 +206,9 @@ const Button = styled.button`
   border: none;
   color: white;
   text-align: center;
+  cursor: pointer;
   ${(props) => (props.border ? `border:${props.border}` : '')};
   /* border: 1px solid #fff; */
-  :last-child {
-    margin-left: 20px;
-  }
 `;
 
 export default Detail;
