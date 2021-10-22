@@ -32,6 +32,10 @@ const Detail = () => {
   const productId = item.id;
   const productCount = count;
 
+  // function numberWithCommas(x) {
+  //   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  // }
+
   // 리덕스에 장바구니 목록 추가 해보기
   const addCartRequest = () => {
     dispatch(cartActions.addCartDB(productId, productCount));

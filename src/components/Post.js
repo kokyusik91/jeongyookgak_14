@@ -3,13 +3,10 @@
 import React from 'react';
 import Grid from '../elements/Grid';
 import styled from 'styled-components';
-import image1 from '../images/main_image1.png';
 import button_image from '../images/button_image.png';
-import { apis } from '../shared/axios';
 import Modal from '../components/Modal';
 import { history } from '../redux/configureStore';
 import Permit from '../shared/Permit';
-import { useSelector } from 'react-redux';
 
 const Post = (props) => {
   const { id, category, title, price, image, imageDetail } = props;

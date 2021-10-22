@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import Grid from '../elements/Grid';
 
 import Post from '../components/Post';
-import shopping_image1 from '../images/shopping_image1.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as useActions } from '../redux/modules/post';
 
