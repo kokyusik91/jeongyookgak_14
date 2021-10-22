@@ -34,7 +34,7 @@ const Cart = () => {
   if (carts.length !== 0) {
     return (
       <React.Fragment>
-        <Grid width="60%" margin="100px auto">
+        <Grid width="1200px" margin="100px auto">
           {/* 장바구니 테스트 */}
           <Text color="black" size="32px" textAlign="center">
             장바구니
