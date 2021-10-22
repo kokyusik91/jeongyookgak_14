@@ -91,9 +91,11 @@ const addCartDB = (id, count) => {
     count: count,
   };
   return (dispatch, { history }, getState) => {
+    console.log(product_info)
     apis
       .create(product_info)
       .then((res) => {
+        console.log("서버 카트데이터",res.data)
         // 추가한 데이터
         alert(
           '지금까지 산 이품목의 갯수는 ' + res.data[0].cart.count + '입니다.'

@@ -24,8 +24,8 @@ const Modal = (props) => {
   };
 
   // 카트추가버튼
-  const addcart = () => {
-    dispatch(userAction.addcartDB(id,count))
+  const addcartRequest = () => {
+    dispatch(userAction.addCartDB(id,count))
   }
 
 
@@ -37,7 +37,7 @@ const Modal = (props) => {
       <Grid width='500px' bg='white' radius='5px' position='absolute'>
         <Grid>
           <Cancelbtn onClick={_modalClose}>X</Cancelbtn>
-        </Grid>
+        </Grid> 
 
         <Grid padding='40px 40px 0px 40px'>
           <Grid>
@@ -80,7 +80,10 @@ const Modal = (props) => {
           <Buybtn onClick={()=>{
             window.alert("서비스 준비중입니다.")
           }} >바로구매</Buybtn>
-          <Cartbtn onClick={addcart}>장바구니</Cartbtn>
+          <Cartbtn onClick={()=>{
+            addcartRequest();
+            _modalClose();
+          }}>장바구니</Cartbtn>
         </Grid>
       </Grid>
     </ModalParent>
