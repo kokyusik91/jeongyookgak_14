@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Text = (props) => {
-  const { bold, color, size, children, margin, textAlign } = props;
+  const { bold, color, size, children, margin, textAlign, _onClick } = props;
 
   const styles = {
     bold: bold,
@@ -11,7 +11,11 @@ const Text = (props) => {
     margin: margin,
     textAlign: textAlign,
   };
-  return <P {...styles}>{children}</P>;
+  return (
+    <P {...styles} onClick={_onClick}>
+      {children}
+    </P>
+  );
 };
 
 Text.defaultProps = {
@@ -20,6 +24,7 @@ Text.defaultProps = {
   color: '#fff',
   size: '14px',
   margin: 0,
+  _onClick: () => {},
 };
 
 const P = styled.p`

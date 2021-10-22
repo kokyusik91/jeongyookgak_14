@@ -4,20 +4,21 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Grid from '../elements/Grid2';
 import Text from '../elements/Text';
-import CommentList from '../pages/CommentList';
 import { useParams } from 'react-router-dom';
 import { history } from '../redux/configureStore';
 import { useDispatch, useSelector } from 'react-redux';
 import { apis } from '../shared/axios';
 import { actionCreators as cartActions } from '../redux/modules/cart';
 
-const Detail = () => {
-  // console.log(data);
+const Detail = (props) => {
+  const { history } = props;
   const [count, setCount] = useState(1);
   // 서버에서 받아온 데이터
   const [item, setItem] = useState({});
   const dispatch = useDispatch();
   const params = parseInt(useParams().id);
+  // 로그인 상태 불러오기
+  const is_login = useSelector((state) => state.user.user.isLogin);
   useEffect(async () => {
     try {
       const res = await apis.get(`api/detail?productId=${params}`);
@@ -38,8 +39,13 @@ const Detail = () => {
 
   // 리덕스에 장바구니 목록 추가 해보기
   const addCartRequest = () => {
-    console.log("카트버튼눌림")
-    dispatch(cartActions.addCartDB(productId, productCount));
+    if (is_login) {
+      dispatch(cartActions.addCartDB(productId, productCount));
+    } else {
+      alert('로그인을 해주세요!');
+      history.push('/Login');
+    }
+
     // 스피너 들어가야함
   };
   const countMinus = () => {
@@ -142,7 +148,14 @@ const Detail = () => {
               </Grid>
             </Grid>
             <Grid margin='40px 0 0 0' is_flex>
-              <Button width='180px' height='60px' bgcolor='#888'>
+              <Button
+                width='180px'
+                height='60px'
+                bgcolor='#888'
+                onClick={() => {
+                  window.alert('서비스 준비중 입니다.');
+                }}
+              >
                 <Text>바로구매</Text>
               </Button>
               <Button
@@ -152,7 +165,7 @@ const Detail = () => {
                 onClick={addCartRequest}
                 margin='0 0 0 20px'
               >
-                <Text>장바구니</Text>
+                <Text>장바구니 추가</Text>
               </Button>
             </Grid>
           </Grid>
@@ -183,8 +196,6 @@ const Detail = () => {
         width='100%'
         src='https://firebasestorage.googleapis.com/v0/b/jyg-custom-seoul-app/o/frontend%2Fdescriptions%2Fweb%2Fporkbelly-clean2.png?alt=media'
       />
-
-      <CommentList />
     </Grid>
   );
 };

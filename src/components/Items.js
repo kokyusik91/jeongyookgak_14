@@ -8,10 +8,11 @@ import Text from '../elements/Text';
 import { actionCreators as cartActions } from '../redux/modules/cart';
 
 const Items = (props) => {
-  console.log('props로 전달받은 데이터', props);
+  // console.log('props로 전달받은 데이터', props);
   const [수량, 수량변경] = useState(props.count);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  // console.log('너의 아이디는 무엇인고?', props.id);
   const deleteItem = () => {
     dispatch(cartActions.deleteCartDB(props.id));
   };
@@ -21,10 +22,17 @@ const Items = (props) => {
   }
 
   const data = {
-    productId: props.id,
+    cartId: props.id,
+    productId: props.productId,
     count: 수량,
     price: Number(props.price),
   };
+  // console.log('단가', data.price);
+
+  // const data2 = {
+  //   productId: props.productId,
+  //   count: 수량,
+  // };
 
   //뺄셈
   const countMinus = () => {
@@ -92,7 +100,7 @@ const Items = (props) => {
 
       <Grid>
         <Text color='black' size='16px'>
-          {numberWithCommas(props.price * 수량)}원
+          {numberWithCommas(props.price * data.count)}원
         </Text>
       </Grid>
       <ButtonContainer2>
@@ -128,6 +136,7 @@ const Button = styled.button`
   ${(props) => (props.margin ? `margin:${props.margin}` : '')};
   /* border: none; */
   text-align: center;
+  cursor: pointer;
   ${(props) => (props.border ? `border:${props.border}` : '')};
   border: none;
   color: 'black';
@@ -139,6 +148,7 @@ const ButtonContainer = styled.div`
   border: 1px solid #e2e2e2;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const ButtonContainer2 = styled.div`
@@ -146,6 +156,7 @@ const ButtonContainer2 = styled.div`
   border: 1px solid #e2e2e2;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 export default Items;
