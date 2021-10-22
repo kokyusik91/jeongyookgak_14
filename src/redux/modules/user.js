@@ -56,7 +56,7 @@ const GetUserDB = (user) => {
         // console.log('로그인정보', res);
         const USER_TOKEN = res.data.token;
         window.sessionStorage.setItem("USER_TOKEN", USER_TOKEN);
-
+        console.log(res.data.errorMessage);
         const user = {
           userInfo: { email: res.data.email, nickname: res.data.nickname },
           isLogin: true,
@@ -68,7 +68,7 @@ const GetUserDB = (user) => {
         history.push("/");
       })
       .catch((error) => {
-        console.log(error, "로그인 실패");
+        console.log(error, "등록되지않은 회원입니다.");
       });
   };
 };
