@@ -36,12 +36,18 @@ const SignupDB = (userId, userNickname, userPw, userPwCheck) => {
     apis
       .signUp(userInfo)
       .then((res) => {
-        // console.log(res.data.result)
-        window.alert("회원에 성공적으로 가입했습니다.");
-        history.push("/Login");
-        console.log(res);
+        console.log(res.data);
+        if (res.data.result === "fail") {
+          window.alert(res.data.errorMessage);
+          window.location.reload(true);
+          return;
+        } else {
+          window.alert("회원가입에 성공하셨습니다.");
+          history.push("/Login");
+        }
       })
       .catch((error) => {
+        // error.response.data.message
         window.alert("회원가입 실패", error);
       });
   };
@@ -53,19 +59,23 @@ const GetUserDB = (user) => {
     apis
       .login(user)
       .then((res) => {
-        // console.log('로그인정보', res);
-        const USER_TOKEN = res.data.token;
-        window.sessionStorage.setItem("USER_TOKEN", USER_TOKEN);
+        console.log("로그인정보", res);
 
-        const user = {
-          userInfo: { email: res.data.email, nickname: res.data.nickname },
-          isLogin: true,
-        };
-
-        dispatch(SetUser(user));
-
-        window.alert("성공적으로 로그인이 되었습니다!!");
-        history.push("/");
+        if (res.data.result === "fail") {
+          window.alert(res.data.errorMessage);
+          window.location.reload(true);
+          return;
+        } else {
+          const USER_TOKEN = res.data.token;
+          window.sessionStorage.setItem("USER_TOKEN", USER_TOKEN);
+          const user = {
+            userInfo: { email: res.data.email, nickname: res.data.nickname },
+            isLogin: true,
+          };
+          dispatch(SetUser(user));
+          window.alert("성공적으로 로그인이 되었습니다!!");
+          history.push("/");
+        }
       })
       .catch((error) => {
         console.log(error, "로그인 실패");
