@@ -1,12 +1,12 @@
-import { createAction, handleActions } from 'redux-actions';
-import { produce } from 'immer';
-import { apis } from '../../shared/axios';
-import axios from 'axios';
-import { appendOwnerState } from '@mui/core';
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
+import { apis } from "../../shared/axios";
+import axios from "axios";
+import { appendOwnerState } from "@mui/core";
 
 //액션 타입
-const SET_USER = 'SET_USER';
-const LOG_OUT = 'LOG_OUT';
+const SET_USER = "SET_USER";
+const LOG_OUT = "LOG_OUT";
 
 //액션 생성함수
 const SetUser = createAction(SET_USER, (user) => ({ user }));
@@ -37,12 +37,12 @@ const SignupDB = (userId, userNickname, userPw, userPwCheck) => {
       .signUp(userInfo)
       .then((res) => {
         // console.log(res.data.result)
-        window.alert('회원에 성공적으로 가입했습니다.');
-        history.push('/Login');
+        window.alert("회원에 성공적으로 가입했습니다.");
+        history.push("/Login");
         console.log(res);
       })
       .catch((error) => {
-        window.alert('회원가입 실패', error);
+        window.alert("회원가입 실패", error);
       });
   };
 };
@@ -55,7 +55,7 @@ const GetUserDB = (user) => {
       .then((res) => {
         // console.log('로그인정보', res);
         const USER_TOKEN = res.data.token;
-        window.sessionStorage.setItem('USER_TOKEN', USER_TOKEN);
+        window.sessionStorage.setItem("USER_TOKEN", USER_TOKEN);
 
         const user = {
           userInfo: { email: res.data.email, nickname: res.data.nickname },
@@ -64,11 +64,11 @@ const GetUserDB = (user) => {
 
         dispatch(SetUser(user));
 
-        window.alert('성공적으로 로그인이 되었습니다!!');
-        history.push('/');
+        window.alert("성공적으로 로그인이 되었습니다!!");
+        history.push("/");
       })
       .catch((error) => {
-        console.log(error, '로그인 실패');
+        console.log(error, "로그인 실패");
       });
   };
 };
@@ -79,7 +79,7 @@ const KakaoLogin = (code) => {
       const { data } = await apis.kakaoLogin(code);
 
       const USER_TOKEN = data.token;
-      window.sessionStorage.setItem('USER_TOKEN', USER_TOKEN);
+      window.sessionStorage.setItem("USER_TOKEN", USER_TOKEN);
 
       const user = {
         userInfo: { email: data.email, nickname: data.nickname },
@@ -87,8 +87,8 @@ const KakaoLogin = (code) => {
       };
 
       dispatch(SetUser(user));
-
-      history.push('/');
+      // window.alert("성공적으로 로그인이 되었습니다!!");
+      // history.push("/");
     } catch (error) {
       console.log(error);
     }
@@ -110,17 +110,17 @@ const LoginCheck = () => {
         dispatch(SetUser(user));
       })
       .catch((error) => {
-        console.log(error, '로그인체크 실패');
+        console.log(error, "로그인체크 실패");
       });
   };
 };
 
 const LogOutDB = () => {
   return function (dispatch, getState, { history }) {
-    sessionStorage.removeItem('USER_TOKEN');
+    sessionStorage.removeItem("USER_TOKEN");
     dispatch(LogOut());
-    window.alert('로그아웃 되었습니다!');
-    history.push('/');
+    window.alert("로그아웃 되었습니다!");
+    history.push("/");
   };
 };
 

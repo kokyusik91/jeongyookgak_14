@@ -1,22 +1,22 @@
 /* eslint-disable */
 
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import Grid from '../elements/Grid';
-import Text from '../elements/Text';
-import data from '../config/data';
-import Items from '../components/Items';
-import { useDispatch, useSelector } from 'react-redux';
-import { history } from '../redux/configureStore';
-import { actionCreators as cartActions } from '../redux/modules/cart';
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import Grid from "../elements/Grid";
+import Text from "../elements/Text";
+import data from "../config/data";
+import Items from "../components/Items";
+import { useDispatch, useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
+import { actionCreators as cartActions } from "../redux/modules/cart";
 
 const Cart = () => {
   const carts = useSelector((state) => state.cart.carts_list);
-  const all_total_price = useSelector((state) => state.cart.all_total_price);
+  let all_total_price = useSelector((state) => state.cart.all_total_price);
   const dispatch = useDispatch();
 
   const gotoShopping = () => {
-    history.push('/shopping');
+    history.push("/shopping");
   };
 
   // 카트페이지에 들어왔을때, 장바구니에 추가한 목록 불러오기
@@ -28,15 +28,15 @@ const Cart = () => {
   }, [all_total_price]);
 
   function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
   // 쇼핑목록이 있을때
   if (carts.length !== 0) {
     return (
       <React.Fragment>
-        <Grid width='60%' margin='100px auto'>
+        <Grid width="60%" margin="100px auto">
           {/* 장바구니 테스트 */}
-          <Text color='black' size='32px' textAlign='center'>
+          <Text color="black" size="32px" textAlign="center">
             장바구니
           </Text>
           {/* 장바구니 정보 */}
@@ -44,13 +44,13 @@ const Cart = () => {
             {/* 장바구니 목록 */}
             <GridTable>
               <TitleGrid>
-                <Text color='black' size='13px' margin='0 0 0 230px'>
+                <Text color="black" size="13px" margin="0 0 0 230px">
                   상품정보
                 </Text>
-                <Text color='black' size='13px' margin='0 0 0 290px'>
+                <Text color="black" size="13px" margin="0 0 0 290px">
                   수량
                 </Text>
-                <Text color='black' size='13px' margin='0 0 0 120px'>
+                <Text color="black" size="13px" margin="0 0 0 120px">
                   가격
                 </Text>
               </TitleGrid>
@@ -66,10 +66,10 @@ const Cart = () => {
             <GridTable2>
               <BorderBottomGrid>
                 <GridPrice>
-                  <Text size='15px' color='black'>
+                  <Text size="15px" color="black">
                     총 상품 금액
                   </Text>
-                  <Text size='15px' color='black'>
+                  <Text size="15px" color="black">
                     {numberWithCommas(all_total_price)}원
                   </Text>
                 </GridPrice>
@@ -77,59 +77,59 @@ const Cart = () => {
 
               <BorderBottomGrid>
                 <GridPrice>
-                  <Text size='15px' color='black'>
+                  <Text size="15px" color="black">
                     총 배송비
                   </Text>
-                  <Text size='15px' color='black'>
+                  <Text size="15px" color="black">
                     0 원
                   </Text>
                 </GridPrice>
                 <SmallGrid>
-                  <Text size='13px' color='#e0dedf'>
+                  <Text size="13px" color="#e0dedf">
                     기본 배송비
                   </Text>
-                  <Text size='13px' color='#e0dedf' margin='0 0 0 20px'>
+                  <Text size="13px" color="#e0dedf" margin="0 0 0 20px">
                     2,500원
                   </Text>
                 </SmallGrid>
                 <SmallGrid>
-                  <Text size='13px' color='#4a90e2'>
+                  <Text size="13px" color="#4a90e2">
                     첫 구매 무료배송
                   </Text>
-                  <Text size='13px' color='#4a90e2'>
+                  <Text size="13px" color="#4a90e2">
                     -100%
                   </Text>
                 </SmallGrid>
               </BorderBottomGrid>
               <FinalGrid>
                 <Text
-                  size='13px'
-                  color='#4a90e2'
-                  margin='10px 0 20px 0'
-                  textAlign='center'
+                  size="13px"
+                  color="#4a90e2"
+                  margin="10px 0 20px 0"
+                  textAlign="center"
                 >
                   첫구매 무료배송 혜택이 적용되었습니다.
                 </Text>
-                <Text size='13px' color='black' textAlign='right' bold>
+                <Text size="13px" color="black" textAlign="right" bold>
                   예상 결제 금액
                 </Text>
                 <Text
-                  size='24px'
-                  color='#d0021b'
-                  margin='0 0 20px 0'
-                  textAlign='right'
+                  size="24px"
+                  color="#d0021b"
+                  margin="0 0 20px 0"
+                  textAlign="right"
                   bold
                 >
                   {numberWithCommas(all_total_price)}원
                 </Text>
               </FinalGrid>
-              <BuyButton bg='#d0021b'>
-                <Text bold size='15px'>
+              <BuyButton bg="#d0021b">
+                <Text bold size="15px">
                   전체상품 주문하기
                 </Text>
               </BuyButton>
-              <BuyButton bg='#acacac'>
-                <Text bold size='15px'>
+              <BuyButton bg="#acacac">
+                <Text bold size="15px">
                   쇼핑계속하기
                 </Text>
               </BuyButton>
@@ -143,22 +143,22 @@ const Cart = () => {
   else {
     return (
       <React.Fragment>
-        <Grid width='80%' margin='100px auto'>
-          <Text color='black' size='32px' textAlign='center'>
+        <Grid width="80%" margin="100px auto">
+          <Text color="black" size="32px" textAlign="center">
             장바구니
           </Text>
           <EmptyGrid>
             <Text
-              size='38px'
-              color='#e1dedf'
-              margin='76px 0 0 0'
-              textAlign='center'
+              size="38px"
+              color="#e1dedf"
+              margin="76px 0 0 0"
+              textAlign="center"
             >
               장바구니에 담은 상품이 없습니다.
             </Text>
             <GoButton onClick={gotoShopping}>
-              <Text size='16px'>쇼핑계속하기</Text>
-              <Text size='16px'>👉🏻</Text>
+              <Text size="16px">쇼핑계속하기</Text>
+              <Text size="16px">👉🏻</Text>
             </GoButton>
           </EmptyGrid>
         </Grid>
@@ -237,7 +237,7 @@ const BuyButton = styled.button`
   height: 50px;
   border: none;
 
-  ${(props) => (props.bg ? `background-color:${props.bg}` : '')};
+  ${(props) => (props.bg ? `background-color:${props.bg}` : "")};
   margin: 7px auto;
 `;
 
