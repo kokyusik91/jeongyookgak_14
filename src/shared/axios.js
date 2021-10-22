@@ -53,7 +53,11 @@ export const apis = {
   signUp: (userInfo) => instance.post("api/signup", userInfo),
   login: (userInfo) => instance.post("api/login", userInfo),
   loginCheck: () => instance.get("/api/login/check"),
+<<<<<<< HEAD
   kakaoLogin: (code) => instance.get(`/user/kakao/callback?code=${code}`),
+=======
+  kakaoLogin: (code) => instancee.gt(`/user/kakao/callback?code=${code}`),
+>>>>>>> feature_Login
 
   get: (url = "/") => instance.get(`${url}`),
   create: (contents) => instance.post("/api/cart", contents),

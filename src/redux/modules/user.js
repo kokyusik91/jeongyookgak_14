@@ -59,6 +59,7 @@ const GetUserDB = (user) => {
     apis
       .login(user)
       .then((res) => {
+<<<<<<< HEAD
         console.log("로그인정보", res);
 
         if (res.data.result === "fail") {
@@ -76,9 +77,24 @@ const GetUserDB = (user) => {
           window.alert("성공적으로 로그인이 되었습니다!!");
           history.push("/");
         }
+=======
+        // console.log('로그인정보', res);
+        const USER_TOKEN = res.data.token;
+        window.sessionStorage.setItem("USER_TOKEN", USER_TOKEN);
+        console.log(res.data.errorMessage);
+        const user = {
+          userInfo: { email: res.data.email, nickname: res.data.nickname },
+          isLogin: true,
+        };
+
+        dispatch(SetUser(user));
+
+        window.alert("성공적으로 로그인이 되었습니다!!");
+        history.push("/");
+>>>>>>> feature_Login
       })
       .catch((error) => {
-        console.log(error, "로그인 실패");
+        console.log(error, "등록되지않은 회원입니다.");
       });
   };
 };

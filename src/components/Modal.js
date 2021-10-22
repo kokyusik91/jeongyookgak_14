@@ -9,6 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 const Modal = (props) => {
   const dispatch = useDispatch();
   const { _modalClose, id, category, title, price, image, imageDetail } = props;
+<<<<<<< HEAD
+=======
+  // console.log('모달데이터',props)
+>>>>>>> feature_Login
 
   // 버튼 useState
   const [count, setCount] = React.useState(1);
@@ -21,7 +25,11 @@ const Modal = (props) => {
   };
 
   // 카트추가버튼
+<<<<<<< HEAD
   const addcartRequest = () => {
+=======
+  const addcart = () => {
+>>>>>>> feature_Login
     dispatch(userAction.addCartDB(id, count));
   };
 
@@ -87,6 +95,7 @@ const Modal = (props) => {
           >
             바로구매
           </Buybtn>
+<<<<<<< HEAD
           <Cartbtn
             onClick={() => {
               addcartRequest();
@@ -95,6 +104,9 @@ const Modal = (props) => {
           >
             장바구니
           </Cartbtn>
+=======
+          <Cartbtn onClick={addcart}>장바구니</Cartbtn>
+>>>>>>> feature_Login
         </Grid>
       </Grid>
     </ModalParent>
