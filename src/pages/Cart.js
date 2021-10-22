@@ -24,7 +24,7 @@ const Cart = () => {
     if (carts.length === 0) {
       dispatch(cartActions.setCartDB());
     }
-  }, [all_total_price]);
+  }, []);
 
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
