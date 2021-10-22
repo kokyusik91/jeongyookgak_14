@@ -75,10 +75,6 @@ const setCartDB = () => {
     try {
       const res = await apis.get('api/cart');
       console.log('서버에 get 요청후 불러온 데이터들', res);
-      // 받아온 데이터 : 상품전체 가격, 이때까지 뭐샀는지,
-      // console.log(res.data[0].totalPrice);
-      // console.log(res.data[1].carts);
-      //데이터 조작을 해서 리듀서로 값을 넘겨 줘야하나?
       const total_price = res.data[0].totalPrice;
       const carts_list = res.data[1].carts;
       dispatch(setCart(carts_list, total_price));
@@ -89,6 +85,7 @@ const setCartDB = () => {
 };
 // 서버에 수량추가한 데이터 요청
 const addCartDB = (id, count) => {
+  console.log(id, count);
   const product_info = {
     productId: id,
     count: count,
@@ -111,10 +108,10 @@ const addCartDB = (id, count) => {
         console.log(res.data[1]);
         const item = {
           ...res.data[0].cart,
-          id: parseInt(id),
           count: count,
         };
         console.log('리듀서 cart_list에 넣을 데이터 형식', item);
+        //item은 데이터베이스에서 추가한 데이터를 응답받은 데이터
         dispatch(addCart(item));
         console.log('응답 성공');
       })
@@ -140,10 +137,11 @@ const deleteCartDB = (productId) => {
 };
 
 const plusCartDB = (data) => {
+  console.log('미들웨어', data);
   return async function (dispatch, getState) {
     try {
       const res = await apis.put(`api/cart`, data);
-      console.log(res.data[0].totalPrice);
+      // console.log(res.data[0].totalPrice);
       // const array = getState().cart.carts_list;
       // const product = array.find((el) => el.id === data.productId);
       // if (product.count < data.count) {
@@ -161,7 +159,7 @@ const minusCartDB = (data) => {
   return async function (dispatch, getState) {
     try {
       const res = await apis.put(`api/cart`, data);
-      console.log(res.data[0].totalPrice);
+      // console.log(res.data[0].totalPrice);
       // const array = getState().cart.carts_list;
       // const product = array.find((el) => el.id === data.productId);
       // if (product.count < data.count) {
@@ -183,19 +181,23 @@ export default handleActions(
         draft.carts_list = action.payload.carts_list;
         draft.all_total_price = action.payload.total_price;
       }),
-    // 카트목록 추가 이미 항목이 있으면 s수량만 추가 적용
+
     [ADD_CART]: (state, action) =>
       produce(state, (draft) => {
-        console.log('리듀서', action.payload.item);
-        let index = draft.carts_list.findIndex((el) => {
+        // 리듀서에서 카트목록 추가, 이미 같은 아이디 항목이 있으면 수량만 추가 적용.
+        // (여기서 id는 DB에 저장되있는 카트 테이블의 id 기존에의 포스트 아이디랑 다름.)
+        let index = state.carts_list.findIndex((el) => {
           return el.id === action.payload.item.id;
         });
         if (index >= 0) {
           draft.carts_list[index].count =
             draft.carts_list[index].count + action.payload.item.count;
         } else {
+          // 카트목록에 아이템 추가 (id:201, productId:3)
+          // 장바구니 추가한 목록이 draft에 올라감.
           draft.carts_list.push(action.payload.item);
         }
+        // 전역에있는 상품 총 가격은 기존 최종 가격에 추가한 항목의 수량 * 가격을 더한다.
         draft.all_total_price =
           draft.all_total_price +
           action.payload.item.count * action.payload.item.price;
@@ -206,9 +208,13 @@ export default handleActions(
         let newArray = draft.carts_list.filter((el) => {
           return el.id !== action.payload.productId;
         });
-        let array = state.carts_list.find((el) => {
+        console.log('리듀서에서 삭제한것 제외한 카트리스트', newArray);
+
+        let array = draft.carts_list.find((el) => {
           return el.id === action.payload.productId;
         });
+        console.log('리듀서에서 삭제한 카트', array);
+
         draft.carts_list = newArray;
         console.log('deleteReducer', array);
         draft.all_total_price =

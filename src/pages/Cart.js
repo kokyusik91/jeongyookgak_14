@@ -12,7 +12,7 @@ import { actionCreators as cartActions } from '../redux/modules/cart';
 
 const Cart = () => {
   const carts = useSelector((state) => state.cart.carts_list);
-  const all_total_price = useSelector((state) => state.cart.all_total_price);
+  let all_total_price = useSelector((state) => state.cart.all_total_price);
   const dispatch = useDispatch();
 
   const gotoShopping = () => {
@@ -22,10 +22,9 @@ const Cart = () => {
   // 카트페이지에 들어왔을때, 장바구니에 추가한 목록 불러오기
   useEffect(() => {
     if (carts.length === 0) {
-      all_total_price = 0;
       dispatch(cartActions.setCartDB());
     }
-  }, [all_total_price]);
+  }, []);
 
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
