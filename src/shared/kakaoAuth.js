@@ -1,5 +1,6 @@
 const CLIENT_ID = "d61dfbb6d55458dae646635fb1fbb89d"; // REST API 키
-const REDIRECT_URI = "http://localhost:3000/user/kakao/callback"; //Redirect URI
+const REDIRECT_URI =
+  "http://nohgangpyo.s3-website.ap-northeast-2.amazonaws.com/user/kakao/callback"; //Redirect URI
 
 export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
 // 파라미터 시작은 ? 부터.
