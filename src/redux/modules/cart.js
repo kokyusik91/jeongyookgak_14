@@ -1,16 +1,16 @@
 /* eslint-disable */
 
-import { createAction, handleActions } from 'redux-actions';
-import { produce } from 'immer';
-import { apis } from '../../shared/axios';
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
+import { apis } from "../../shared/axios";
 
 // action type
-const SET_CART = 'SET_CART';
-const ADD_CART = 'ADD_CART';
-const UPDATE_CART = 'UPDATE_CART';
-const DELETE_CART = 'DELETE_CART';
-const PLUS_PRICE = 'PLUS_PRICE';
-const MINUS_PRICE = 'MINUS_PRICE';
+const SET_CART = "SET_CART";
+const ADD_CART = "ADD_CART";
+const UPDATE_CART = "UPDATE_CART";
+const DELETE_CART = "DELETE_CART";
+const PLUS_PRICE = "PLUS_PRICE";
+const MINUS_PRICE = "MINUS_PRICE";
 
 // action Creator
 const setCart = createAction(SET_CART, (carts_list, total_price) => ({
@@ -34,7 +34,7 @@ const initialState = {
   carts_list: [],
   all_total_price: 0,
 };
-
+///dfsdfsdf
 // middleware
 // const plusPriceFB = (id) => {
 //   return function (dispatch, getState) {
@@ -73,8 +73,8 @@ const initialState = {
 const setCartDB = () => {
   return async function (dispatch, getState) {
     try {
-      const res = await apis.get('api/cart');
-      console.log('서버에 get 요청후 불러온 데이터들', res);
+      const res = await apis.get("api/cart");
+      console.log("서버에 get 요청후 불러온 데이터들", res);
       // 받아온 데이터 : 상품전체 가격, 이때까지 뭐샀는지,
       // console.log(res.data[0].totalPrice);
       // console.log(res.data[1].carts);
@@ -83,7 +83,7 @@ const setCartDB = () => {
       const carts_list = res.data[1].carts;
       dispatch(setCart(carts_list, total_price));
     } catch (e) {
-      console.log('error :::::: ', e);
+      console.log("error :::::: ", e);
     }
   };
 };
@@ -99,12 +99,12 @@ const addCartDB = (id, count) => {
       .then((res) => {
         // 추가한 데이터
         alert(
-          '지금까지 산 이품목의 갯수는 ' + res.data[0].cart.count + '입니다.'
+          "지금까지 산 이품목의 갯수는 " + res.data[0].cart.count + "입니다."
         );
         alert(
-          '지금까지 산 이품목의 누적가격은 ' +
+          "지금까지 산 이품목의 누적가격은 " +
             res.data[0].cart.sumPrice +
-            '입니다.'
+            "입니다."
         );
         console.log(res.data[0]);
         // 추가한 데이터의 총가격
@@ -114,12 +114,12 @@ const addCartDB = (id, count) => {
           id: parseInt(id),
           count: count,
         };
-        console.log('리듀서 cart_list에 넣을 데이터 형식', item);
+        console.log("리듀서 cart_list에 넣을 데이터 형식", item);
         dispatch(addCart(item));
-        console.log('응답 성공');
+        console.log("응답 성공");
       })
       .catch((error) => {
-        console.log(error, '장바구니 추가실패');
+        console.log(error, "장바구니 추가실패");
       });
   };
 };
@@ -128,13 +128,13 @@ const addCartDB = (id, count) => {
 const deleteCartDB = (productId) => {
   return async function (dispatch, getState) {
     // 확인
-    console.log('미들웨어로 넘어온 productId', productId);
+    console.log("미들웨어로 넘어온 productId", productId);
     try {
       const res = await apis.delete(`api/cart/${productId}`);
       console.log(res);
       dispatch(deleteCart(productId));
     } catch (e) {
-      console.log('error :::::: ', e);
+      console.log("error :::::: ", e);
     }
   };
 };
@@ -152,7 +152,7 @@ const plusCartDB = (data) => {
       //   dispatch(minusPrice(data.price));
       // }
     } catch (e) {
-      console.log('error :::::: ', e);
+      console.log("error :::::: ", e);
     }
   };
 };
@@ -170,7 +170,7 @@ const minusCartDB = (data) => {
       //   dispatch(minusPrice(data.price));
       // }
     } catch (e) {
-      console.log('error :::::: ', e);
+      console.log("error :::::: ", e);
     }
   };
 };
@@ -186,7 +186,7 @@ export default handleActions(
     // 카트목록 추가 이미 항목이 있으면 s수량만 추가 적용
     [ADD_CART]: (state, action) =>
       produce(state, (draft) => {
-        console.log('리듀서', action.payload.item);
+        console.log("리듀서", action.payload.item);
         let index = draft.carts_list.findIndex((el) => {
           return el.id === action.payload.item.id;
         });
@@ -202,7 +202,7 @@ export default handleActions(
       }),
     [DELETE_CART]: (state, action) =>
       produce(state, (draft) => {
-        console.log('리듀서로 넘어온 productID', action.payload.productId);
+        console.log("리듀서로 넘어온 productID", action.payload.productId);
         let newArray = draft.carts_list.filter((el) => {
           return el.id !== action.payload.productId;
         });
@@ -210,7 +210,7 @@ export default handleActions(
           return el.id === action.payload.productId;
         });
         draft.carts_list = newArray;
-        console.log('deleteReducer', array);
+        console.log("deleteReducer", array);
         draft.all_total_price =
           draft.all_total_price - array.count * array.price;
       }),
