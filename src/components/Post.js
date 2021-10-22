@@ -1,43 +1,39 @@
 import React from "react";
 import Grid from "../elements/Grid";
 import styled from "styled-components";
-import image1 from "../images/main_image1.png";
-import button_image from "../images/button_image.png";
-import { apis } from "../shared/axios";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+// import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+
 import Modal from "../components/Modal";
 import { history } from "../redux/configureStore";
 import Permit from "../shared/Permit";
-import { useSelector } from "react-redux";
 
 const Post = (props) => {
   const { id, category, title, price, image, imageDetail } = props;
-  // console.log('각각의 프롭스', props.id);
 
+  // 모달
   const [modal, setModal] = React.useState(false);
   const modalOpen = () => setModal(true);
   const modalClose = () => setModal(false);
 
-  //  const modalOnoff = () => {
-  //       if(!modal){
-  //         modalOpen()
-  //       }else{
-  //         modalClose()
-  //       }
-  //   }
+  // 카트 CSS
+  const [isHover, setIsHover] = React.useState(false);
+  const handleMouseEnter = (e) => {
+    setIsHover(true)
+  };
+  const handleMouseLeave = (e) => {
+    setIsHover(false)
+  };
 
-  // const handleMouseEnter = (e) => {
-  //   e.target.style.background = 'black';
-  // };
-  // const handleMouseLeave = (e) => {
-  //   e.target.style.background = 'white';
-  // };
-
+  // 상세 페이지이동
   const movePage = () => {
     history.push(`/detail/${props.id}`);
-
     // 이동할때 scroll top으로 맞춰주기.
     window.scrollTo(0, 0);
   };
+
 
   return (
     <React.Fragment>
@@ -50,10 +46,24 @@ const Post = (props) => {
           <Permit>
             <Grid is_flex4 margin="0px 20px 0px 0px" padding="10px 0px">
               <Button
-                onClick={() => {
+                 onClick={() => {
                   modalOpen();
                 }}
-              ></Button>
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                bg={isHover ? "black" : "white"}
+              >
+                {/* <ShoppingCartOutlinedIcon 
+                  fontSize="large"
+                  color="yellow"
+                /> */}
+                <FontAwesomeIcon
+                  icon={faShoppingCart}
+                  color={isHover ? "white" : "black" }
+                  size="2x"
+                  cursor="pointer"
+                />
+              </Button>
             </Grid>
           </Permit>
         </Grid>
@@ -88,16 +98,15 @@ const Image = styled.div`
 
 const Button = styled.button`
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
+
+  ${(props) => (props.bg ? `background-color:${props.bg};` : "")} 
   width: 72px;
   height: 72px;
   border-radius: 50%;
   border: 2px solid #eee;
   box-shadow: 0 25px 10px -15px rgb(0 0 0 / 12%);
-  background-color: #fff;
   cursor: pointer;
-  background-image: url(${button_image});
-  background-size: cover;
-  background-position: center;
+
 `;
 
 const Text = styled.p`
