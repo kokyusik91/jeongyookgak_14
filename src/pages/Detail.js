@@ -39,6 +39,7 @@ const Detail = () => {
   // 리덕스에 장바구니 목록 추가 해보기
   const addCartRequest = () => {
     dispatch(cartActions.addCartDB(productId, productCount));
+
     // 스피너 들어가야함
   };
   const countMinus = () => {

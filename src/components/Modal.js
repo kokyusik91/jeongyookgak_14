@@ -7,11 +7,9 @@ import { actionCreators as userAction } from '../redux/modules/cart';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Modal = (props) => {
-
   const dispatch = useDispatch();
-  const {_modalClose, id, category, title, price, image, imageDetail } = props
+  const { _modalClose, id, category, title, price, image, imageDetail } = props;
   // console.log('모달데이터',props)
-
 
   // 버튼 useState
   const [count, setCount] = React.useState(1);
@@ -25,12 +23,8 @@ const Modal = (props) => {
 
   // 카트추가버튼
   const addcart = () => {
-    dispatch(userAction.addcartDB(id,count))
-  }
-
-
-
-
+    dispatch(userAction.addCartDB(id, count));
+  };
 
   return (
     <ModalParent>
@@ -46,11 +40,21 @@ const Modal = (props) => {
             </Text>
           </Grid>
 
-          <Grid is_flex height="50px" margin="40px 0 0 0" border="1px solid #e1dedf">
+          <Grid
+            is_flex
+            height='50px'
+            margin='40px 0 0 0'
+            border='1px solid #e1dedf'
+          >
             <Countbtn onClick={decreaseCount}>-</Countbtn>
-              <Grid width="350px" is_flex2 height="50px" border="1px solid #e1dedf">
-                <Text>{count}</Text>
-              </Grid>
+            <Grid
+              width='350px'
+              is_flex2
+              height='50px'
+              border='1px solid #e1dedf'
+            >
+              <Text>{count}</Text>
+            </Grid>
             <Countbtn onClick={increaseCount}>+</Countbtn>
           </Grid>
 
@@ -76,10 +80,14 @@ const Modal = (props) => {
           </Grid>
         </Grid>
 
-        <Grid is_flex margin="10px 0  0 0">
-          <Buybtn onClick={()=>{
-            window.alert("서비스 준비중입니다.")
-          }} >바로구매</Buybtn>
+        <Grid is_flex margin='10px 0  0 0'>
+          <Buybtn
+            onClick={() => {
+              window.alert('서비스 준비중입니다.');
+            }}
+          >
+            바로구매
+          </Buybtn>
           <Cartbtn onClick={addcart}>장바구니</Cartbtn>
         </Grid>
       </Grid>
@@ -135,7 +143,7 @@ const Countbtn = styled.button`
   width: 50px;
   height: 50px;
   border: 1px solid #e1dedf;
-  margin :0;
+  margin: 0;
 `;
 
 const Cartbtn = styled.button`

@@ -22,12 +22,12 @@ const addCart = createAction(ADD_CART, (item) => ({ item }));
 const updateCart = createAction(UPDATE_CART, (price) => ({
   price,
 }));
-const deleteCart = createAction(DELETE_CART, (productId) => ({ productId }));
-const plusPrice = createAction(PLUS_PRICE, (price) => ({
-  price,
+const deleteCart = createAction(DELETE_CART, (cartId) => ({ cartId }));
+const plusPrice = createAction(PLUS_PRICE, (data) => ({
+  data,
 }));
-const minusPrice = createAction(MINUS_PRICE, (price) => ({
-  price,
+const minusPrice = createAction(MINUS_PRICE, (data) => ({
+  data,
 }));
 
 const initialState = {
@@ -75,7 +75,9 @@ const setCartDB = () => {
     try {
       const res = await apis.get('api/cart');
       console.log('서버에 get 요청후 불러온 데이터들', res);
+      // 장바구니에 담긴 모든 리스트들의 총 가격 (얼마나왔는지?).
       const total_price = res.data[0].totalPrice;
+      //장바구니에 추가된 목록 리스트배열.
       const carts_list = res.data[1].carts;
       dispatch(setCart(carts_list, total_price));
     } catch (e) {
@@ -122,14 +124,15 @@ const addCartDB = (id, count) => {
 };
 
 // delete method
-const deleteCartDB = (productId) => {
+const deleteCartDB = (Id) => {
   return async function (dispatch, getState) {
     // 확인
-    console.log('미들웨어로 넘어온 productId', productId);
+    console.log('미들웨어로 넘어온 productId', Id);
     try {
-      const res = await apis.delete(`api/cart/${productId}`);
-      console.log(res);
-      dispatch(deleteCart(productId));
+      const res = await apis.delete(`api/cart/${Id}`);
+      console.log('삭제한후 서버 응답데이터', res);
+      // 이거 카트아이디임.
+      dispatch(deleteCart(Id));
     } catch (e) {
       console.log('error :::::: ', e);
     }
@@ -145,7 +148,8 @@ const plusCartDB = (data) => {
       // const array = getState().cart.carts_list;
       // const product = array.find((el) => el.id === data.productId);
       // if (product.count < data.count) {
-      dispatch(plusPrice(data.price));
+      // console.log('미들웨어단가', data.price);
+      dispatch(plusPrice(data));
       // } else {
       //   dispatch(minusPrice(data.price));
       // }
@@ -163,7 +167,7 @@ const minusCartDB = (data) => {
       // const array = getState().cart.carts_list;
       // const product = array.find((el) => el.id === data.productId);
       // if (product.count < data.count) {
-      dispatch(minusPrice(data.price));
+      dispatch(minusPrice(data));
       // } else {
       //   dispatch(minusPrice(data.price));
       // }
@@ -178,7 +182,9 @@ export default handleActions(
   {
     [SET_CART]: (state, action) =>
       produce(state, (draft) => {
+        // 장바구니 목록에 추가된 아이템들을 State에 저장.
         draft.carts_list = action.payload.carts_list;
+        // 장바구니에 들어있는 아이템들의 총가격 (그래서 얼마나왔는지)
         draft.all_total_price = action.payload.total_price;
       }),
 
@@ -204,29 +210,49 @@ export default handleActions(
       }),
     [DELETE_CART]: (state, action) =>
       produce(state, (draft) => {
-        console.log('리듀서로 넘어온 productID', action.payload.productId);
-        let newArray = draft.carts_list.filter((el) => {
-          return el.id !== action.payload.productId;
+        console.log('리듀서로 넘어온 productID', action.payload.cartId);
+        let newArrays = state.carts_list.filter((el) => {
+          console.log('아이디비교', el.id, action.payload.cartId);
+          return el.id !== action.payload.cartId;
         });
-        console.log('리듀서에서 삭제한것 제외한 카트리스트', newArray);
-
-        let array = draft.carts_list.find((el) => {
-          return el.id === action.payload.productId;
+        // console.log('리듀서에서 삭제한것 제외한 카트리스트', newArray);
+        // 데이터베이스에서 삭제한 목록 {} 형식임.
+        let array = state.carts_list.find((el) => {
+          return el.id === action.payload.cartId;
         });
-        console.log('리듀서에서 삭제한 카트', array);
-
-        draft.carts_list = newArray;
+        // console.log('리듀서에서 삭제한 카트', array);
+        console.log('삭제후 남은 어레이', newArrays);
+        draft.carts_list = newArrays;
         console.log('deleteReducer', array);
         draft.all_total_price =
           draft.all_total_price - array.count * array.price;
       }),
     [PLUS_PRICE]: (state, action) =>
       produce(state, (draft) => {
-        draft.all_total_price = draft.all_total_price + action.payload.price;
+        const index = state.carts_list.findIndex((el) => {
+          return el.id === action.payload.data.cartId;
+        });
+        draft.carts_list[index] = {
+          ...draft.carts_list[index],
+          count: action.payload.data.count,
+          price: action.payload.data.price,
+        };
+
+        draft.all_total_price =
+          draft.all_total_price + action.payload.data.price;
       }),
     [MINUS_PRICE]: (state, action) =>
       produce(state, (draft) => {
-        draft.all_total_price = draft.all_total_price - action.payload.price;
+        const index = state.carts_list.findIndex((el) => {
+          return el.id === action.payload.data.cartId;
+        });
+        draft.carts_list[index] = {
+          ...draft.carts_list[index],
+          count: action.payload.data.count,
+          price: action.payload.data.price,
+        };
+        draft.all_total_price =
+          draft.all_total_price - action.payload.data.price;
       }),
 
     // [PLUS_PRICE]: (state, action) =>
