@@ -1,15 +1,14 @@
 /* eslint-disable */
 
-import React from 'react';
-import styled from 'styled-components';
-import Grid from '../elements/Grid';
-import { actionCreators as userAction } from '../redux/modules/cart';
-import { useDispatch, useSelector } from 'react-redux';
+import React from "react";
+import styled from "styled-components";
+import Grid from "../elements/Grid";
+import { actionCreators as userAction } from "../redux/modules/cart";
+import { useDispatch, useSelector } from "react-redux";
 
 const Modal = (props) => {
   const dispatch = useDispatch();
   const { _modalClose, id, category, title, price, image, imageDetail } = props;
-  // console.log('모달데이터',props)
 
   // 버튼 useState
   const [count, setCount] = React.useState(1);
@@ -28,62 +27,62 @@ const Modal = (props) => {
 
   return (
     <ModalParent>
-      <Grid width='500px' bg='white' radius='5px' position='absolute'>
+      <Grid width="500px" bg="white" radius="5px" position="absolute">
         <Grid>
           <Cancelbtn onClick={_modalClose}>X</Cancelbtn>
         </Grid>
 
-        <Grid padding='40px 40px 0px 40px'>
+        <Grid padding="40px 40px 0px 40px">
           <Grid>
-            <Text size='25px' bold center='true'>
+            <Text size="25px" bold center="true">
               {title}
             </Text>
           </Grid>
 
           <Grid
             is_flex
-            height='50px'
-            margin='40px 0 0 0'
-            border='1px solid #e1dedf'
+            height="50px"
+            margin="40px 0 0 0"
+            border="1px solid #e1dedf"
           >
             <Countbtn onClick={decreaseCount}>-</Countbtn>
             <Grid
-              width='350px'
+              width="350px"
               is_flex2
-              height='50px'
-              border='1px solid #e1dedf'
+              height="50px"
+              border="1px solid #e1dedf"
             >
               <Text>{count}</Text>
             </Grid>
             <Countbtn onClick={increaseCount}>+</Countbtn>
           </Grid>
 
-          <Grid margin='14px 0 0 0'>
-            <Text size='16px' bold>
+          <Grid margin="14px 0 0 0">
+            <Text size="16px" bold>
               옵션선택
             </Text>
           </Grid>
 
           <Grid
-            height='50px'
-            margin='5px 0 0 0'
-            border='1px solid #e1dedf'
+            height="50px"
+            margin="5px 0 0 0"
+            border="1px solid #e1dedf"
             is_flex2
           >
-            <Text center='true'>보통(16mm)</Text>
+            <Text center="true">보통(16mm)</Text>
           </Grid>
 
-          <Grid is_flex4 margin='10px 0  0 0'>
-            <Text bold size='24px'>
+          <Grid is_flex4 margin="10px 0  0 0">
+            <Text bold size="24px">
               {price * count}원
             </Text>
           </Grid>
         </Grid>
 
-        <Grid is_flex margin='10px 0  0 0'>
+        <Grid is_flex margin="10px 0  0 0">
           <Buybtn
             onClick={() => {
-              window.alert('서비스 준비중입니다.');
+              window.alert("서비스 준비중입니다.");
             }}
           >
             바로구매
@@ -116,11 +115,11 @@ const ModalParent = styled.div`
 `;
 
 const Text = styled.p`
-  ${(props) => (props.center ? `text-align:center` : '')}
-  ${(props) => (props.color ? `color:${props.color}` : '')};
-  ${(props) => (props.size ? `font-size:${props.size}` : '')};
+  ${(props) => (props.center ? `text-align:center` : "")}
+  ${(props) => (props.color ? `color:${props.color}` : "")};
+  ${(props) => (props.size ? `font-size:${props.size}` : "")};
   ${(props) => (props.bold ? `font-weight:600 ` : `font-weight:400`)};
-  ${(props) => (props.border ? `border:${props.border}` : '')}
+  ${(props) => (props.border ? `border:${props.border}` : "")}
 `;
 
 const Cancelbtn = styled.button`

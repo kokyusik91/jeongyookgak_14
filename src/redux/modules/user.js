@@ -1,12 +1,12 @@
-import { createAction, handleActions } from 'redux-actions';
-import { produce } from 'immer';
-import { apis } from '../../shared/axios';
-import axios from 'axios';
-import { appendOwnerState } from '@mui/core';
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
+import { apis } from "../../shared/axios";
+import axios from "axios";
+import { appendOwnerState } from "@mui/core";
 
 //액션 타입
-const SET_USER = 'SET_USER';
-const LOG_OUT = 'LOG_OUT';
+const SET_USER = "SET_USER";
+const LOG_OUT = "LOG_OUT";
 
 //액션 생성함수
 const SetUser = createAction(SET_USER, (user) => ({ user }));
@@ -37,18 +37,18 @@ const SignupDB = (userId, userNickname, userPw, userPwCheck) => {
       .signUp(userInfo)
       .then((res) => {
         // console.log(res.data);
-        if (res.data.result === 'fail') {
+        if (res.data.result === "fail") {
           window.alert(res.data.errorMessage);
           window.location.reload(true);
           return;
         } else {
-          window.alert('회원가입에 성공하셨습니다.');
-          history.push('/Login');
+          window.alert("회원가입에 성공하셨습니다.");
+          history.push("/Login");
         }
       })
       .catch((error) => {
         // error.response.data.message
-        window.alert('회원가입 실패', error);
+        window.alert("회원가입 실패", error);
       });
   };
 };
@@ -59,26 +59,26 @@ const GetUserDB = (user) => {
     apis
       .login(user)
       .then((res) => {
-        console.log('로그인정보', res);
+        console.log("로그인정보", res);
 
-        if (res.data.result === 'fail') {
+        if (res.data.result === "fail") {
           window.alert(res.data.errorMessage);
           window.location.reload(true);
           return;
         } else {
           const USER_TOKEN = res.data.token;
-          window.sessionStorage.setItem('USER_TOKEN', USER_TOKEN);
+          window.sessionStorage.setItem("USER_TOKEN", USER_TOKEN);
           const user = {
             userInfo: { email: res.data.email, nickname: res.data.nickname },
             isLogin: true,
           };
           dispatch(SetUser(user));
-          window.alert('성공적으로 로그인이 되었습니다!!');
-          history.push('/');
+          window.alert("성공적으로 로그인이 되었습니다!!");
+          history.push("/");
         }
       })
       .catch((error) => {
-        console.log(error, '로그인 실패');
+        console.log(error, "로그인 실패");
       });
   };
 };
@@ -89,7 +89,7 @@ const KakaoLogin = (code) => {
       const { data } = await apis.kakaoLogin(code);
 
       const USER_TOKEN = data.token;
-      window.sessionStorage.setItem('USER_TOKEN', USER_TOKEN);
+      window.sessionStorage.setItem("USER_TOKEN", USER_TOKEN);
 
       const user = {
         userInfo: { email: data.email, nickname: data.nickname },
@@ -109,8 +109,6 @@ const LoginCheck = () => {
     apis
       .loginCheck()
       .then((res) => {
-        // console.log(res, '로그인 체크');
-
         const user = {
           userInfo: { email: res.data.email, nickname: res.data.nickname },
           isLogin: true,
@@ -119,17 +117,17 @@ const LoginCheck = () => {
         dispatch(SetUser(user));
       })
       .catch((error) => {
-        console.log(error, '로그인체크 실패');
+        console.log(error, "로그인체크 실패");
       });
   };
 };
 
 const LogOutDB = () => {
   return function (dispatch, getState, { history }) {
-    sessionStorage.removeItem('USER_TOKEN');
+    sessionStorage.removeItem("USER_TOKEN");
     dispatch(LogOut());
-    window.alert('로그아웃 되었습니다!');
-    history.push('/');
+    window.alert("로그아웃 되었습니다!");
+    history.push("/");
   };
 };
 
