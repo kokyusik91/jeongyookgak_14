@@ -54,12 +54,12 @@ instance.interceptors.response.use(
   }
 );
 
-// headers : {'Authorization': `Bearer ${sessionStorage.getItem('token')}`}
 export const apis = {
   //User
   signUp: (userInfo) => instance.post("api/signup", userInfo),
   login: (userInfo) => instance.post("api/login", userInfo),
   loginCheck: () => instance.get("/api/login/check"),
+  kakaoLogin: (code) => instance.get(`/user/kakao/callback?code=${code}`),
 
   get: (url = "/") => instance.get(`${url}`),
   create: (contents) => instance.post("/api/cart", contents),
@@ -67,12 +67,3 @@ export const apis = {
   delete: (url = "", id = "") => instance.delete(`${url}/${id}`),
   getReply: (url = "/", id = "") => instance.get(`${url}/${id}`),
 };
-
-// apis
-// .getPost()
-// .then((response) => {
-//   console.log(response.data);
-// })
-// .catch((err) => {
-//   console.log(err);
-// });

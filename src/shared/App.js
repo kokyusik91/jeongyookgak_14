@@ -11,9 +11,10 @@ import Header from "../components/Header";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Shopping from "../pages/Shopping";
+
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-
+import Kakao from "../components/Kakao";
 function App() {
   const dispatch = useDispatch();
 
@@ -27,6 +28,7 @@ function App() {
   return (
     <ConnectedRouter history={history}>
       <Header />
+      <Route path="/user/kakao/callback" component={Kakao}></Route>
       <Route path="/" exact component={Main} />
       <Route path="/shopping" exact component={Shopping} />
       <Route path="/Login" exact component={Login} />
