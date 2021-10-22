@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 
 const Kakao = (props) => {
+  const { history } = props;
   const dispatch = useDispatch();
   let code = new URL(window.location.href).searchParams.get("code");
 
@@ -11,7 +12,8 @@ const Kakao = (props) => {
     // You can await here
     // ...
     dispatch(userActions.KakaoLogin(code));
-  }, [code, dispatch]);
+    history.push("/");
+  }, [code, dispatch, history]);
 
   return <h1>리다이렉션 페이지입니다.</h1>;
 };

@@ -12,7 +12,7 @@ import { actionCreators as cartActions } from "../redux/modules/cart";
 
 const Cart = () => {
   const carts = useSelector((state) => state.cart.carts_list);
-  const all_total_price = useSelector((state) => state.cart.all_total_price);
+  let all_total_price = useSelector((state) => state.cart.all_total_price);
   const dispatch = useDispatch();
 
   const gotoShopping = () => {
