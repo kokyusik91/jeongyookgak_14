@@ -3,12 +3,12 @@
 
 ## 📰 상세 페이지
 
-![image](/public/images/logo_image)
-![image](/public/images/login_image)
-![image](/public/images/main_image)
-![image](/public/images/shopping_image)
-![image](/public/images/detail_image)
-![image](/public/images/cart_image)
+![image](/public/images/logo_image.png)
+![image](/public/images/login_image.png)
+![image](/public/images/main_image.png)
+![image](/public/images/shopping_image.png)
+![image](/public/images/detail_image.png)
+![image](/public/images/cart_image.png)
 
 ## 💻 웹 사이트
 
